@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cms.gzh.mapper.MdEssayMapper">
+
+    <resultMap type="com.cms.gzh.domain.MdEssay" id="MdEssayResult">
+        <result property="id" column="id"/>
+        <result property="essayTitle" column="essay_title"/>
+        <result property="essaySubtitle" column="essay_subtitle"/>
+        <result property="essayText" column="essay_text"/>
+        <result property="informationClassify" column="information_classify_id"/>
+        <result property="coverImage" column="cover_image"/>
+        <result property="sort" column="sort"/>
+        <result property="text" column="text"/>
+        <result property="status" column="status"/>
+        <result property="clickNum" column="click_num"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateTime" column="update_time"/>
+        <result property="isDelete" column="is_delete"/>
+    </resultMap>
+
+    <sql id="selectMdEssayVo">
+        SELECT id,
+               essay_title,
+               essay_subtitle,
+               essay_text,
+               information_classify_id,
+               cover_image,
+               sort,
+               text,
+               status,
+               click_num,
+               create_time,
+               update_time,
+               is_delete
+        FROM md_qcgw_gzh.md_essay
+    </sql>
+
+    <select id="selectMdEssayList" parameterType="com.cms.gzh.domain.MdEssay" resultMap="MdEssayResult">
+        <include refid="selectMdEssayVo"/>
+        <where>
+            <if test="essayTitle != null  and essayTitle != ''">and essay_title = #{essayTitle}</if>
+            <if test="essaySubtitle != null  and essaySubtitle != ''">and essay_subtitle = #{essaySubtitle}</if>
+            <if test="informationClassify != null  and informationClassify != ''">and information_classify_id =
+                #{informationClassify}
+            </if>
+            <if test="status != null ">and status = #{status}</if>
+        </where>
+    </select>
+
+    <select id="selectMdEssayById" parameterType="Integer" resultMap="MdEssayResult">
+        <include refid="selectMdEssayVo"/>
+        where id = #{id}
+    </select>
+
+    <insert id="insertMdEssay" parameterType="com.cms.gzh.domain.MdEssay" useGeneratedKeys="true" keyProperty="id">
+        insert into md_qcgw_gzh.md_essay
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="essayTitle != null">essay_title,</if>
+            <if test="essaySubtitle != null">essay_subtitle,</if>
+            <if test="essayText != null">essay_text,</if>
+            <if test="informationClassify != null">information_classify_id,</if>
+            <if test="coverImage != null">cover_image,</if>
+            <if test="sort != null">sort,</if>
+            <if test="text != null">text,</if>
+            <if test="status != null">status,</if>
+            <if test="clickNum != null">click_num,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateTime != null">update_time,</if>
+            <if test="isDelete != null">is_delete,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="essayTitle != null">#{essayTitle},</if>
+            <if test="essaySubtitle != null">#{essaySubtitle},</if>
+            <if test="essayText != null">#{essayText},</if>
+            <if test="informationClassify != null">#{informationClassify},</if>
+            <if test="coverImage != null">#{coverImage},</if>
+            <if test="sort != null">#{sort},</if>
+            <if test="text != null">#{text},</if>
+            <if test="status != null">#{status},</if>
+            <if test="clickNum != null">#{clickNum},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+            <if test="isDelete != null">#{isDelete},</if>
+        </trim>
+    </insert>
+
+    <update id="updateMdEssay" parameterType="com.cms.gzh.domain.MdEssay">
+        update md_qcgw_gzh.md_essay
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="essayTitle != null">essay_title = #{essayTitle},</if>
+            <if test="essaySubtitle != null">essay_subtitle = #{essaySubtitle},</if>
+            <if test="essayText != null">essay_text = #{essayText},</if>
+            <if test="informationClassify != null">information_classify_id = #{informationClassify},</if>
+            <if test="coverImage != null">cover_image = #{coverImage},</if>
+            <if test="sort != null">sort = #{sort},</if>
+            <if test="text != null">text = #{text},</if>
+            <if test="status != null">status = #{status},</if>
+            <if test="clickNum != null">click_num = #{clickNum},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+            <if test="isDelete != null">is_delete = #{isDelete},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteMdEssayById" parameterType="Integer">
+        DELETE
+        FROM md_qcgw_gzh.md_essay
+        WHERE id = #{id}
+    </delete>
+
+    <delete id="deleteMdEssayByIds" parameterType="String">
+        delete from md_qcgw_gzh.md_essay where id in
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+    <select id="nameList" resultType="com.cms.system.api.domain.IdNameVo">
+        SELECT e.id AS id, e.essay_title AS name
+        FROM md_qcgw_gzh.md_essay e
+    </select>
+</mapper>

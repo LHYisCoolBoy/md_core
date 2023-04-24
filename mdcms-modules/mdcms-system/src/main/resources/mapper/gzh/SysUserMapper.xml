@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cms.gzh.mapper.SysGzhUserMapper">
+
+    <resultMap type="com.cms.gzh.domain.SysGzhUser" id="SysUserResult">
+        <result property="id" column="id"/>
+        <result property="userName" column="user_name"/>
+        <result property="registerTime" column="register_time"/>
+        <result property="avatar" column="avatar"/>
+        <result property="phone" column="phone"/>
+        <result property="sex" column="sex"/>
+        <result property="status" column="status"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateTime" column="update_time"/>
+        <result property="isDelete" column="is_delete"/>
+    </resultMap>
+
+    <sql id="selectSysUserVo">
+        SELECT id,
+               user_name,
+               register_time,
+               avatar,
+               phone,
+               sex,
+               status,
+               create_time,
+               update_time,
+               is_delete
+        FROM md_qcgw_gzh.sys_user
+    </sql>
+
+    <select id="selectSysUserList" parameterType="SysUser" resultMap="SysUserResult">
+        <include refid="selectSysUserVo"/>
+        <where>
+            <if test="userName != null  and userName != ''">and user_name like concat('%', #{userName}, '%')</if>
+            <if test="registerTime != null ">and register_time = #{registerTime}</if>
+            <if test="phone != null  and phone != ''">and phone like concat('%', #{phone}, '%')</if>
+            <if test="sex != null ">and sex = #{sex}</if>
+            <if test="status != null ">and status = #{status}</if>
+            <if test="isDelete != null ">and is_delete = #{isDelete}</if>
+        </where>
+    </select>
+
+    <select id="selectSysUserById" parameterType="Long" resultMap="SysUserResult">
+        <include refid="selectSysUserVo"/>
+        where id = #{id}
+    </select>
+
+    <insert id="insertSysUser" parameterType="SysUser" useGeneratedKeys="true" keyProperty="id">
+        insert into md_qcgw_gzh.sys_user
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="userName != null">user_name,</if>
+            <if test="registerTime != null">register_time,</if>
+            <if test="avatar != null">avatar,</if>
+            <if test="phone != null">phone,</if>
+            <if test="sex != null">sex,</if>
+            <if test="status != null">status,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateTime != null">update_time,</if>
+            <if test="isDelete != null">is_delete,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="userName != null">#{userName},</if>
+            <if test="registerTime != null">#{registerTime},</if>
+            <if test="notTime != null">#{notTime},</if>
+            <if test="avatar != null">#{avatar},</if>
+            <if test="phone != null">#{phone},</if>
+            <if test="sex != null">#{sex},</if>
+            <if test="status != null">#{status},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+            <if test="isDelete != null">#{isDelete},</if>
+        </trim>
+    </insert>
+
+    <update id="updateSysUser" parameterType="SysUser">
+        update md_qcgw_gzh.sys_user
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="userName != null">user_name = #{userName},</if>
+            <if test="registerTime != null">register_time = #{registerTime},</if>
+            <if test="avatar != null">avatar = #{avatar},</if>
+            <if test="phone != null">phone = #{phone},</if>
+            <if test="sex != null">sex = #{sex},</if>
+            <if test="status != null">status = #{status},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+            <if test="isDelete != null">is_delete = #{isDelete},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteSysUserById" parameterType="Long">
+        DELETE
+        FROM md_qcgw_gzh.sys_user
+        WHERE id = #{id}
+    </delete>
+
+    <delete id="deleteSysUserByIds" parameterType="String">
+        delete from md_qcgw_gzh.sys_user where id in
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>

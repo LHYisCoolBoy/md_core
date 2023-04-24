@@ -1,3 +1,0 @@
-org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-  com.hljycms.common.log.service.AsyncLogService,\
-  com.hljycms.common.log.aspect.LogAspect

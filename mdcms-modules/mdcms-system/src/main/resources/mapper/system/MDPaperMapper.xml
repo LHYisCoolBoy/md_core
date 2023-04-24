@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cms.system.mapper.MDPaperMapper">
+
+    <select id="getPaper" resultType="MdPaper">
+        SELECT p.title AS title, p.desc AS `desc`,p.questions AS qSort
+        FROM md_question_paper p
+        WHERE p.id = #{id}
+    </select>
+</mapper>

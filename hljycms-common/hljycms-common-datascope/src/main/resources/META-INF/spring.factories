@@ -1,4 +1,0 @@
-org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-  com.hljycms.common.datascope.aspect.DataScopeAspect
-
-  

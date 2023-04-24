@@ -4,16 +4,16 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.hljycms</groupId>
-    <artifactId>hljycms</artifactId>
+    <groupId>com.mdcms</groupId>
+    <artifactId>mdcms</artifactId>
     <version>2.5.0</version>
 
-    <name>hljycms</name>
-    <url>http://www.hljyer.com</url>
-    <description>亨利嘉业微服务系统</description>
+    <name>mdcms</name>
+    <url>http://www.mder.com</url>
+    <description>明德微服务系统</description>
 
     <properties>
-        <hljycms.version>2.5.0</hljycms.version>
+        <mdcms.version>2.5.0</mdcms.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <java.version>1.8</java.version>
@@ -68,28 +68,28 @@
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
-			
+
             <!--  SpringBoot 监控客户端 -->
             <dependency>
                 <groupId>de.codecentric</groupId>
                 <artifactId>spring-boot-admin-starter-client</artifactId>
                 <version>${spring-boot-admin.version}</version>
             </dependency>
-			
+
             <!-- FastDFS 分布式文件系统 -->
             <dependency>
                 <groupId>com.github.tobato</groupId>
                 <artifactId>fastdfs-client</artifactId>
                 <version>${tobato.version}</version>
             </dependency>
-			
+
             <!-- Mybatis 依赖配置 -->
             <dependency>
                 <groupId>org.mybatis.spring.boot</groupId>
                 <artifactId>mybatis-spring-boot-starter</artifactId>
                 <version>${spring-boot.mybatis}</version>
             </dependency>
-			
+
             <!-- Swagger 依赖配置 -->
             <dependency>
                 <groupId>io.swagger</groupId>
@@ -150,7 +150,7 @@
                 <artifactId>fastjson</artifactId>
                 <version>${fastjson.version}</version>
             </dependency>
-            
+
             <!-- 公共资源池 -->
             <dependency>
                 <groupId>org.apache.commons</groupId>
@@ -160,75 +160,75 @@
 
             <!-- 核心模块 -->
 	        <dependency>
-                <groupId>com.hljycms</groupId>
-                <artifactId>hljycms-common-core</artifactId>
-                <version>${hljycms.version}</version>
+                <groupId>com.mdcms</groupId>
+                <artifactId>mdcms-common-core</artifactId>
+                <version>${mdcms.version}</version>
             </dependency>
-			
+
             <!-- 接口模块 -->
             <dependency>
-                <groupId>com.hljycms</groupId>
-                <artifactId>hljycms-common-swagger</artifactId>
-                <version>${hljycms.version}</version>
+                <groupId>com.mdcms</groupId>
+                <artifactId>mdcms-common-swagger</artifactId>
+                <version>${mdcms.version}</version>
             </dependency>
-	        
+
             <!-- 安全模块 -->
             <dependency>
-                <groupId>com.hljycms</groupId>
-                <artifactId>hljycms-common-security</artifactId>
-                <version>${hljycms.version}</version>
+                <groupId>com.mdcms</groupId>
+                <artifactId>mdcms-common-security</artifactId>
+                <version>${mdcms.version}</version>
             </dependency>
-	        
+
             <!-- 权限范围 -->
             <dependency>
-                <groupId>com.hljycms</groupId>
-                <artifactId>hljycms-common-datascope</artifactId>
-                <version>${hljycms.version}</version>
+                <groupId>com.mdcms</groupId>
+                <artifactId>mdcms-common-datascope</artifactId>
+                <version>${mdcms.version}</version>
             </dependency>
-            
+
             <!-- 多数据源 -->
             <dependency>
-                <groupId>com.hljycms</groupId>
-                <artifactId>hljycms-common-datasource</artifactId>
-                <version>${hljycms.version}</version>
+                <groupId>com.mdcms</groupId>
+                <artifactId>mdcms-common-datasource</artifactId>
+                <version>${mdcms.version}</version>
             </dependency>
-			
+
             <!-- 日志记录 -->
             <dependency>
-                <groupId>com.hljycms</groupId>
-                <artifactId>hljycms-common-log</artifactId>
-                <version>${hljycms.version}</version>
+                <groupId>com.mdcms</groupId>
+                <artifactId>mdcms-common-log</artifactId>
+                <version>${mdcms.version}</version>
             </dependency>
-			
+
             <!-- 缓存服务 -->
             <dependency>
-                <groupId>com.hljycms</groupId>
-                <artifactId>hljycms-common-redis</artifactId>
-                <version>${hljycms.version}</version>
+                <groupId>com.mdcms</groupId>
+                <artifactId>mdcms-common-redis</artifactId>
+                <version>${mdcms.version}</version>
             </dependency>
-			
+
             <!-- 系统接口 -->
             <dependency>
-                <groupId>com.hljycms</groupId>
-                <artifactId>hljycms-api-system</artifactId>
-                <version>${hljycms.version}</version>
+                <groupId>com.mdcms</groupId>
+                <artifactId>mdcms-api-system</artifactId>
+                <version>${mdcms.version}</version>
             </dependency>
-			
+
         </dependencies>
     </dependencyManagement>
 
     <modules>
-		<module>hljycms-auth</module>
-		<module>hljycms-gateway</module>
-		<module>hljycms-visual</module>
-		<module>hljycms-modules</module>
-		<module>hljycms-api</module>
-		<module>hljycms-common</module>
+		<module>mdcms-auth</module>
+		<module>mdcms-gateway</module>
+		<module>mdcms-visual</module>
+		<module>mdcms-modules</module>
+		<module>mdcms-api</module>
+		<module>mdcms-common</module>
     </modules>
     <packaging>pom</packaging>
 
     <dependencies>
-        
+
     </dependencies>
 
     <build>
@@ -245,4 +245,32 @@
         </plugins>
     </build>
 
+    <distributionManagement>
+        <snapshotRepository>
+            <id>nexus-mdcms</id>
+            <name>local private nexus</name>
+            <url>http://123.56.170.190:8849/repository/mdcms/</url>
+        </snapshotRepository>
+
+        <repository>
+            <id>nexus-mdcms</id>
+            <name>local private nexus</name>
+            <url>http://123.56.170.190:8849/repository/mdcms/</url>
+        </repository>
+    </distributionManagement>
+
+    <repositories>
+        <repository>
+            <id>nexus-mdcms</id>
+            <url>http://123.56.170.190:8849/repository/mdcms/</url>
+            <releases>
+                <enabled>true</enabled>
+                <updatePolicy>never</updatePolicy>
+            </releases>
+            <snapshots>
+                <enabled>true</enabled>
+                <updatePolicy>always</updatePolicy>
+            </snapshots>
+        </repository>
+    </repositories>
 </project>
