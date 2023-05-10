@@ -20,7 +20,7 @@
         <spring-boot.version>2.3.7.RELEASE</spring-boot.version>
         <spring-cloud.version>Hoxton.SR9</spring-cloud.version>
         <spring-cloud-alibaba.version>2.2.5.RELEASE</spring-cloud-alibaba.version>
-		<spring-boot-admin.version>2.3.1</spring-boot-admin.version>
+        <spring-boot-admin.version>2.3.1</spring-boot-admin.version>
         <spring-boot.mybatis>2.1.3</spring-boot.mybatis>
         <swagger.fox.version>2.9.2</swagger.fox.version>
         <swagger.core.version>1.5.24</swagger.core.version>
@@ -34,7 +34,7 @@
         <velocity.version>1.7</velocity.version>
         <fastjson.version>1.2.75</fastjson.version>
         <minio.version>8.0.3</minio.version>
-		<poi.version>4.1.2</poi.version>
+        <poi.version>4.1.2</poi.version>
         <common-pool.version>2.6.2</common-pool.version>
     </properties>
 
@@ -51,7 +51,7 @@
                 <scope>import</scope>
             </dependency>
 
-			<!-- SpringCloud Alibaba 微服务 -->
+            <!-- SpringCloud Alibaba 微服务 -->
             <dependency>
                 <groupId>com.alibaba.cloud</groupId>
                 <artifactId>spring-cloud-alibaba-dependencies</artifactId>
@@ -159,7 +159,7 @@
             </dependency>
 
             <!-- 核心模块 -->
-	        <dependency>
+            <dependency>
                 <groupId>com.mdcms</groupId>
                 <artifactId>mdcms-common-core</artifactId>
                 <version>${mdcms.version}</version>
@@ -218,12 +218,12 @@
     </dependencyManagement>
 
     <modules>
-		<module>mdcms-auth</module>
-		<module>mdcms-gateway</module>
-		<module>mdcms-visual</module>
-		<module>mdcms-modules</module>
-		<module>mdcms-api</module>
-		<module>mdcms-common</module>
+        <module>mdcms-auth</module>
+        <module>mdcms-gateway</module>
+        <module>mdcms-visual</module>
+        <module>mdcms-modules</module>
+        <module>mdcms-api</module>
+        <module>mdcms-common</module>
     </modules>
     <packaging>pom</packaging>
 
@@ -241,6 +241,18 @@
                     <target>${java.version}</target>
                     <encoding>${project.build.sourceEncoding}</encoding>
                 </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <version>2.7.5</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>repackage</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
     </build>

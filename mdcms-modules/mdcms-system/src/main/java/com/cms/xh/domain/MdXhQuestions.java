@@ -1,105 +1,99 @@
 package com.cms.xh.domain;
 
 import com.cms.common.core.annotation.Excel;
+import com.cms.common.core.web.domain.BaseEntity;
+import org.apache.commons.lang.builder.ToStringBuilder;
+import org.apache.commons.lang.builder.ToStringStyle;
+
 
 /**
  * 问卷答题对象 md_xh_questions
  *
  * @author lhy
- * @date 2023-05-05
+ * @date 2023-05-08
  */
-public class MdXhQuestions extends BaseEntity
-{
+public class MdXhQuestions extends BaseEntity {
     private static final long serialVersionUID = 1L;
 
-    /** 主键，答题 ID */
+    /**
+     * 主键
+     */
+    @Excel(name = "主键")
     private Long id;
 
-    /** 题目内容 */
-    @Excel(name = "题目内容")
-    private String question;
+    /**
+     * 用户 ID
+     */
+    @Excel(name = "用户 ID")
+    private Long userId;
 
-    /** 用户提交的答案 */
+    /**
+     * 题目 ID
+     */
+    @Excel(name = "题目 ID")
+    private Long topicId;
+
+    /**
+     * 用户提交的答案
+     */
     @Excel(name = "用户提交的答案")
     private String userAnswer;
 
-    /** 正确答案 */
-    @Excel(name = "正确答案")
-    private String answer;
-
-    /** 分数及格之后给的图片 */
-    @Excel(name = "分数及格之后给的图片")
-    private String imgUrl;
-
-    /** 逻辑删除（0 - 未删除，1 - 已删除） */
+    /**
+     * 逻辑删除（0 - 未删除，1 - 已删除）
+     */
     private Long isDelete;
 
-    public void setId(Long id)
-    {
+    public void setId(Long id) {
         this.id = id;
     }
 
-    public Long getId()
-    {
+    public Long getId() {
         return id;
     }
-    public void setQuestion(String question)
-    {
-        this.question = question;
+
+    public void setUserId(Long userId) {
+        this.userId = userId;
     }
 
-    public String getQuestion()
-    {
-        return question;
+    public Long getUserId() {
+        return userId;
     }
-    public void setUserAnswer(String userAnswer)
-    {
+
+    public void setTopicId(Long topicId) {
+        this.topicId = topicId;
+    }
+
+    public Long getTopicId() {
+        return topicId;
+    }
+
+    public void setUserAnswer(String userAnswer) {
         this.userAnswer = userAnswer;
     }
 
-    public String getUserAnswer()
-    {
+    public String getUserAnswer() {
         return userAnswer;
     }
-    public void setAnswer(String answer)
-    {
-        this.answer = answer;
-    }
 
-    public String getAnswer()
-    {
-        return answer;
-    }
-    public void setImgUrl(String imgUrl)
-    {
-        this.imgUrl = imgUrl;
-    }
-
-    public String getImgUrl()
-    {
-        return imgUrl;
-    }
-    public void setIsDelete(Long isDelete)
-    {
+    public void setIsDelete(Long isDelete) {
         this.isDelete = isDelete;
     }
 
-    public Long getIsDelete()
-    {
+    public Long getIsDelete() {
         return isDelete;
     }
 
     @Override
     public String toString() {
-        return new ToStringBuilder(this,ToStringStyle.MULTI_LINE_STYLE)
-            .append("id", getId())
-            .append("question", getQuestion())
-            .append("userAnswer", getUserAnswer())
-            .append("answer", getAnswer())
-            .append("imgUrl", getImgUrl())
-            .append("createTime", getCreateTime())
-            .append("updateTime", getUpdateTime())
-            .append("isDelete", getIsDelete())
-            .toString();
+        return new ToStringBuilder(this, ToStringStyle.MULTI_LINE_STYLE)
+                .append("id", getId())
+                .append("userId", getUserId())
+                .append("topicId", getTopicId())
+                .append("userAnswer", getUserAnswer())
+                .append("createTime", getCreateTime())
+                .append("updateTime", getUpdateTime())
+                .append("isDelete", getIsDelete())
+                .toString();
     }
 }

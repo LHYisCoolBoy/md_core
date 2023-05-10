@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cms.xh.mapper.MdXhUsersMapper">
+    
+    <resultMap type="com.cms.xh.domain.MdXhUsers" id="MdXhUsersResult">
+        <result property="id"    column="id"    />
+        <result property="name"    column="name"    />
+        <result property="password"    column="password"    />
+        <result property="watchTime"    column="watch_time"    />
+        <result property="watchCount"    column="watch_count"    />
+        <result property="score"    column="score"    />
+        <result property="num"    column="num"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateTime"    column="update_time"    />
+        <result property="isDelete"    column="is_delete"    />
+    </resultMap>
+
+    <sql id="selectMdXhUsersVo">
+        select id, name, password, watch_time, watch_count, score, num, create_time, update_time, is_delete from md_xh_users
+    </sql>
+
+    <select id="selectMdXhUsersList" parameterType="com.cms.xh.domain.MdXhUsers" resultMap="MdXhUsersResult">
+        <include refid="selectMdXhUsersVo"/>
+        <where>  
+            <if test="name != null  and name != ''"> and name like concat('%', #{name}, '%')</if>
+            <if test="score != null "> and score = #{score}</if>
+            <if test="num != null "> and num = #{num}</if>
+        </where>
+    </select>
+    
+    <select id="selectMdXhUsersById" parameterType="Long" resultMap="MdXhUsersResult">
+        <include refid="selectMdXhUsersVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertMdXhUsers" parameterType="com.cms.xh.domain.MdXhUsers" useGeneratedKeys="true" keyProperty="id">
+        insert into md_xh_users
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="name != null">name,</if>
+            <if test="password != null">password,</if>
+            <if test="watchTime != null">watch_time,</if>
+            <if test="watchCount != null">watch_count,</if>
+            <if test="score != null">score,</if>
+            <if test="num != null">num,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateTime != null">update_time,</if>
+            <if test="isDelete != null">is_delete,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="name != null">#{name},</if>
+            <if test="password != null">#{password},</if>
+            <if test="watchTime != null">#{watchTime},</if>
+            <if test="watchCount != null">#{watchCount},</if>
+            <if test="score != null">#{score},</if>
+            <if test="num != null">#{num},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+            <if test="isDelete != null">#{isDelete},</if>
+         </trim>
+    </insert>
+
+    <update id="updateMdXhUsers" parameterType="com.cms.xh.domain.MdXhUsers">
+        update md_xh_users
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="name != null">name = #{name},</if>
+            <if test="password != null">password = #{password},</if>
+            <if test="watchTime != null">watch_time = #{watchTime},</if>
+            <if test="watchCount != null">watch_count = #{watchCount},</if>
+            <if test="score != null">score = #{score},</if>
+            <if test="num != null">num = #{num},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+            <if test="isDelete != null">is_delete = #{isDelete},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteMdXhUsersById" parameterType="Long">
+        delete from md_xh_users where id = #{id}
+    </delete>
+
+    <delete id="deleteMdXhUsersByIds" parameterType="String">
+        delete from md_xh_users where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>

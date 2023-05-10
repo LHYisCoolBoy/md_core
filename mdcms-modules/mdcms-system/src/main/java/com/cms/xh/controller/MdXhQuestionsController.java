@@ -4,14 +4,7 @@ import java.util.List;
 import java.io.IOException;
 import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import com.cms.common.log.annotation.Log;
 import com.cms.common.log.enums.BusinessType;
 import com.cms.common.security.annotation.PreAuthorize;
@@ -26,7 +19,7 @@ import com.cms.common.core.web.page.TableDataInfo;
  * 问卷答题Controller
  *
  * @author lhy
- * @date 2023-05-05
+ * @date 2023-05-08
  */
 @RestController
 @RequestMapping("/questions")

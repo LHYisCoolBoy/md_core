@@ -1,6 +1,7 @@
 package com.cms.xh.service.impl;
 
 import java.util.List;
+
 import com.cms.common.core.utils.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -8,15 +9,17 @@ import com.cms.xh.mapper.MdXhQuestionsMapper;
 import com.cms.xh.domain.MdXhQuestions;
 import com.cms.xh.service.IMdXhQuestionsService;
 
+import javax.annotation.Resource;
+
 /**
  * 问卷答题Service业务层处理
  *
  * @author lhy
- * @date 2023-05-05
+ * @date 2023-05-08
  */
 @Service
-public class MdXhQuestionsServiceImpl implements IMdXhQuestionsService
-{
+public class MdXhQuestionsServiceImpl implements IMdXhQuestionsService {
+
     @Autowired
     private MdXhQuestionsMapper mdXhQuestionsMapper;
 
@@ -27,8 +30,7 @@ public class MdXhQuestionsServiceImpl implements IMdXhQuestionsService
      * @return 问卷答题
      */
     @Override
-    public MdXhQuestions selectMdXhQuestionsById(Long id)
-    {
+    public MdXhQuestions selectMdXhQuestionsById(Long id) {
         return mdXhQuestionsMapper.selectMdXhQuestionsById(id);
     }
 
@@ -39,8 +41,7 @@ public class MdXhQuestionsServiceImpl implements IMdXhQuestionsService
      * @return 问卷答题
      */
     @Override
-    public List<MdXhQuestions> selectMdXhQuestionsList(MdXhQuestions mdXhQuestions)
-    {
+    public List<MdXhQuestions> selectMdXhQuestionsList(MdXhQuestions mdXhQuestions) {
         return mdXhQuestionsMapper.selectMdXhQuestionsList(mdXhQuestions);
     }
 
@@ -51,8 +52,7 @@ public class MdXhQuestionsServiceImpl implements IMdXhQuestionsService
      * @return 结果
      */
     @Override
-    public int insertMdXhQuestions(MdXhQuestions mdXhQuestions)
-    {
+    public int insertMdXhQuestions(MdXhQuestions mdXhQuestions) {
         mdXhQuestions.setCreateTime(DateUtils.getNowDate());
         return mdXhQuestionsMapper.insertMdXhQuestions(mdXhQuestions);
     }
@@ -64,8 +64,7 @@ public class MdXhQuestionsServiceImpl implements IMdXhQuestionsService
      * @return 结果
      */
     @Override
-    public int updateMdXhQuestions(MdXhQuestions mdXhQuestions)
-    {
+    public int updateMdXhQuestions(MdXhQuestions mdXhQuestions) {
         mdXhQuestions.setUpdateTime(DateUtils.getNowDate());
         return mdXhQuestionsMapper.updateMdXhQuestions(mdXhQuestions);
     }
@@ -77,8 +76,7 @@ public class MdXhQuestionsServiceImpl implements IMdXhQuestionsService
      * @return 结果
      */
     @Override
-    public int deleteMdXhQuestionsByIds(Long[] ids)
-    {
+    public int deleteMdXhQuestionsByIds(Long[] ids) {
         return mdXhQuestionsMapper.deleteMdXhQuestionsByIds(ids);
     }
 
@@ -89,8 +87,7 @@ public class MdXhQuestionsServiceImpl implements IMdXhQuestionsService
      * @return 结果
      */
     @Override
-    public int deleteMdXhQuestionsById(Long id)
-    {
+    public int deleteMdXhQuestionsById(Long id) {
         return mdXhQuestionsMapper.deleteMdXhQuestionsById(id);
     }
 }

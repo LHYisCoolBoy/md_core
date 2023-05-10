@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cms.xh.mapper.MdXhVideosMapper">
+    
+    <resultMap type="com.cms.xh.domain.MdXhVideos" id="MdXhVideosResult">
+        <result property="id"    column="id"    />
+        <result property="title"    column="title"    />
+        <result property="videoUrl"    column="video_url"    />
+        <result property="coverUrl"    column="cover_url"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateTime"    column="update_time"    />
+        <result property="isDelete"    column="is_delete"    />
+    </resultMap>
+
+    <sql id="selectMdXhVideosVo">
+        select id, title, video_url, cover_url, create_time, update_time, is_delete from md_xh_videos
+    </sql>
+
+    <select id="selectMdXhVideosList" parameterType="com.cms.xh.domain.MdXhVideos" resultMap="MdXhVideosResult">
+        <include refid="selectMdXhVideosVo"/>
+        <where>  
+        </where>
+    </select>
+    
+    <select id="selectMdXhVideosById" parameterType="Long" resultMap="MdXhVideosResult">
+        <include refid="selectMdXhVideosVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertMdXhVideos" parameterType="com.cms.xh.domain.MdXhVideos" useGeneratedKeys="true" keyProperty="id">
+        insert into md_xh_videos
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="title != null">title,</if>
+            <if test="videoUrl != null">video_url,</if>
+            <if test="coverUrl != null">cover_url,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateTime != null">update_time,</if>
+            <if test="isDelete != null">is_delete,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="title != null">#{title},</if>
+            <if test="videoUrl != null">#{videoUrl},</if>
+            <if test="coverUrl != null">#{coverUrl},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+            <if test="isDelete != null">#{isDelete},</if>
+         </trim>
+    </insert>
+
+    <update id="updateMdXhVideos" parameterType="com.cms.xh.domain.MdXhVideos">
+        update md_xh_videos
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="title != null">title = #{title},</if>
+            <if test="videoUrl != null">video_url = #{videoUrl},</if>
+            <if test="coverUrl != null">cover_url = #{coverUrl},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+            <if test="isDelete != null">is_delete = #{isDelete},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteMdXhVideosById" parameterType="Long">
+        delete from md_xh_videos where id = #{id}
+    </delete>
+
+    <delete id="deleteMdXhVideosByIds" parameterType="String">
+        delete from md_xh_videos where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>

@@ -1,19 +1,20 @@
 package com.cms.xh.mapper;
 
 import java.util.List;
+
 import com.cms.xh.domain.MdXhQuestions;
+import org.springframework.stereotype.Repository;
 
 /**
  * 问卷答题Mapper接口
- * 
+ *
  * @author lhy
- * @date 2023-05-05
+ * @date 2023-05-08
  */
-public interface MdXhQuestionsMapper 
-{
+public interface MdXhQuestionsMapper {
     /**
      * 查询问卷答题
-     * 
+     *
      * @param id 问卷答题ID
      * @return 问卷答题
      */
@@ -21,7 +22,7 @@ public interface MdXhQuestionsMapper
 
     /**
      * 查询问卷答题列表
-     * 
+     *
      * @param mdXhQuestions 问卷答题
      * @return 问卷答题集合
      */
@@ -29,7 +30,7 @@ public interface MdXhQuestionsMapper
 
     /**
      * 新增问卷答题
-     * 
+     *
      * @param mdXhQuestions 问卷答题
      * @return 结果
      */
@@ -37,7 +38,7 @@ public interface MdXhQuestionsMapper
 
     /**
      * 修改问卷答题
-     * 
+     *
      * @param mdXhQuestions 问卷答题
      * @return 结果
      */
@@ -45,7 +46,7 @@ public interface MdXhQuestionsMapper
 
     /**
      * 删除问卷答题
-     * 
+     *
      * @param id 问卷答题ID
      * @return 结果
      */
@@ -53,7 +54,7 @@ public interface MdXhQuestionsMapper
 
     /**
      * 批量删除问卷答题
-     * 
+     *
      * @param ids 需要删除的数据ID
      * @return 结果
      */

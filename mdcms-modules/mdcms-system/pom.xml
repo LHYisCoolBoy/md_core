@@ -16,14 +16,6 @@
     </description>
 
     <dependencies>
-
-        <!--
-        <dependency>
-            <groupId>com.tencent.weixin</groupId>
-            <artifactId>weixin-java-mp</artifactId>
-            <version>3.7.0</version>
-        </dependency>-->
-
         <!-- SpringCloud Ailibaba Nacos -->
         <dependency>
             <groupId>com.alibaba.cloud</groupId>
