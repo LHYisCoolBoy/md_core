@@ -11,6 +11,7 @@ import org.springframework.stereotype.Repository;
  * @author lhy
  * @date 2023-05-08
  */
+@Repository
 public interface MdXhVideosMapper {
     /**
      * 查询视频信息

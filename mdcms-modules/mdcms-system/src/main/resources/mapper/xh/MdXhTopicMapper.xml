@@ -86,4 +86,10 @@
             #{id}
         </foreach>
     </delete>
+
+    <select id="getAllByTypeAndAnswer" parameterType="long" resultType="com.cms.xh.domain.vo.MdXhTopicTypeAndAnswerVO">
+        select type, answer
+        from md_xh_topic
+        where id = #{topicId};
+    </select>
 </mapper>

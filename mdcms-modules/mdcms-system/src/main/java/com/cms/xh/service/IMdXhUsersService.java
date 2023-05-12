@@ -2,12 +2,13 @@ package com.cms.xh.service;
 
 import java.util.List;
 import com.cms.xh.domain.MdXhUsers;
+import com.cms.xh.domain.vo.MdXhUsersVO;
 
 /**
  * 用户信息Service接口
  * 
  * @author lhy
- * @date 2023-05-08
+ * @date 2023-05-12
  */
 public interface IMdXhUsersService 
 {
@@ -21,11 +22,11 @@ public interface IMdXhUsersService
 
     /**
      * 查询用户信息列表
-     * 
+     *
      * @param mdXhUsers 用户信息
      * @return 用户信息集合
      */
-    public List<MdXhUsers> selectMdXhUsersList(MdXhUsers mdXhUsers);
+    public List<MdXhUsersVO> selectMdXhUsersList(MdXhUsersVO mdXhUsers);
 
     /**
      * 新增用户信息

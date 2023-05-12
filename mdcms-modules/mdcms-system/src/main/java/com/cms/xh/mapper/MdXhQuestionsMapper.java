@@ -2,7 +2,9 @@ package com.cms.xh.mapper;
 
 import java.util.List;
 
+import com.cms.system.domain.md.MdQuestion;
 import com.cms.xh.domain.MdXhQuestions;
+import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -11,6 +13,7 @@ import org.springframework.stereotype.Repository;
  * @author lhy
  * @date 2023-05-08
  */
+@Repository
 public interface MdXhQuestionsMapper {
     /**
      * 查询问卷答题
@@ -59,4 +62,19 @@ public interface MdXhQuestionsMapper {
      * @return 结果
      */
     public int deleteMdXhQuestionsByIds(Long[] ids);
+
+    /**
+     * 用户提交题目
+     *
+     * @param mdQuestion 用户提交的题目
+     * @return
+     */
+    int addUserQuestions(List<MdXhQuestions> mdQuestion);
+
+    /**
+     * 根据用户 ID 删除已提交的题目
+     * @param userId 用户 ID
+     * @return
+     */
+    int deleteByUserId(Long userId);
 }

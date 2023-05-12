@@ -67,7 +67,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </delete>
 
     <delete id="deleteMdXhVideosByIds" parameterType="String">
-        delete from md_xh_videos where id in 
+        delete from md_xh_videos where id in
         <foreach item="id" collection="array" open="(" separator="," close=")">
             #{id}
         </foreach>

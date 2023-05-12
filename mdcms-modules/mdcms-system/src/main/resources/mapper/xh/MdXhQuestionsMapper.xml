@@ -79,4 +79,19 @@
             #{id}
         </foreach>
     </delete>
+
+    <insert id="addUserQuestions" parameterType="list">
+        insert into md_xh_questions (user_id, topic_id, user_answer)
+        values
+        <foreach collection="list" item="item" separator=",">
+            (#{item.userId}, #{item.topicId}, #{item.userAnswer})
+        </foreach>
+    </insert>
+    <delete id="deleteByUserId" parameterType="long">
+        delete
+        from md_xh_questions
+        <where>
+            <if test="userId != null">user_id = #{userId}</if>
+        </where>
+    </delete>
 </mapper>

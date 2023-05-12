@@ -2,10 +2,11 @@ package com.cms.xh.service.impl;
 
 import java.util.List;
 import com.cms.common.core.utils.DateUtils;
+import com.cms.xh.domain.MdXhUsers;
+import com.cms.xh.domain.vo.MdXhUsersVO;
+import com.cms.xh.mapper.MdXhUsersMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import com.cms.xh.mapper.MdXhUsersMapper;
-import com.cms.xh.domain.MdXhUsers;
 import com.cms.xh.service.IMdXhUsersService;
 
 /**
@@ -39,7 +40,7 @@ public class MdXhUsersServiceImpl implements IMdXhUsersService
      * @return 用户信息
      */
     @Override
-    public List<MdXhUsers> selectMdXhUsersList(MdXhUsers mdXhUsers)
+    public List<MdXhUsersVO> selectMdXhUsersList(MdXhUsersVO mdXhUsers)
     {
         return mdXhUsersMapper.selectMdXhUsersList(mdXhUsers);
     }

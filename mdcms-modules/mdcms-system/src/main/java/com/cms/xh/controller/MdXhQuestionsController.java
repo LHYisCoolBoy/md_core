@@ -3,6 +3,9 @@ package com.cms.xh.controller;
 import java.util.List;
 import java.io.IOException;
 import javax.servlet.http.HttpServletResponse;
+
+import com.cms.common.core.exception.BaseException;
+import com.cms.xh.service.IMdXhVideosService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import com.cms.common.log.annotation.Log;
@@ -23,18 +26,19 @@ import com.cms.common.core.web.page.TableDataInfo;
  */
 @RestController
 @RequestMapping("/questions")
-public class MdXhQuestionsController extends BaseController
-{
+public class MdXhQuestionsController extends BaseController {
     @Autowired
     private IMdXhQuestionsService mdXhQuestionsService;
+
+    @Autowired
+    private IMdXhQuestionsService iMdXhQuestionsService;
 
     /**
      * 查询问卷答题列表
      */
     @PreAuthorize(hasPermi = "system:questions:list")
     @GetMapping("/list")
-    public TableDataInfo list(MdXhQuestions mdXhQuestions)
-    {
+    public TableDataInfo list(MdXhQuestions mdXhQuestions) {
         startPage();
         List<MdXhQuestions> list = mdXhQuestionsService.selectMdXhQuestionsList(mdXhQuestions);
         return getDataTable(list);
@@ -46,8 +50,7 @@ public class MdXhQuestionsController extends BaseController
     @PreAuthorize(hasPermi = "system:questions:export")
     @Log(title = "问卷答题", businessType = BusinessType.EXPORT)
     @PostMapping("/export")
-    public void export(HttpServletResponse response, MdXhQuestions mdXhQuestions) throws IOException
-    {
+    public void export(HttpServletResponse response, MdXhQuestions mdXhQuestions) throws IOException {
         List<MdXhQuestions> list = mdXhQuestionsService.selectMdXhQuestionsList(mdXhQuestions);
         ExcelUtil<MdXhQuestions> util = new ExcelUtil<MdXhQuestions>(MdXhQuestions.class);
         util.exportExcel(response, list, "questions");
@@ -58,8 +61,7 @@ public class MdXhQuestionsController extends BaseController
      */
     @PreAuthorize(hasPermi = "system:questions:query")
     @GetMapping(value = "/{id}")
-    public AjaxResult getInfo(@PathVariable("id") Long id)
-    {
+    public AjaxResult getInfo(@PathVariable("id") Long id) {
         return AjaxResult.success(mdXhQuestionsService.selectMdXhQuestionsById(id));
     }
 
@@ -69,8 +71,7 @@ public class MdXhQuestionsController extends BaseController
     @PreAuthorize(hasPermi = "system:questions:add")
     @Log(title = "问卷答题", businessType = BusinessType.INSERT)
     @PostMapping
-    public AjaxResult add(@RequestBody MdXhQuestions mdXhQuestions)
-    {
+    public AjaxResult add(@RequestBody MdXhQuestions mdXhQuestions) {
         return toAjax(mdXhQuestionsService.insertMdXhQuestions(mdXhQuestions));
     }
 
@@ -80,8 +81,7 @@ public class MdXhQuestionsController extends BaseController
     @PreAuthorize(hasPermi = "system:questions:edit")
     @Log(title = "问卷答题", businessType = BusinessType.UPDATE)
     @PutMapping
-    public AjaxResult edit(@RequestBody MdXhQuestions mdXhQuestions)
-    {
+    public AjaxResult edit(@RequestBody MdXhQuestions mdXhQuestions) {
         return toAjax(mdXhQuestionsService.updateMdXhQuestions(mdXhQuestions));
     }
 
@@ -90,9 +90,32 @@ public class MdXhQuestionsController extends BaseController
      */
     @PreAuthorize(hasPermi = "system:questions:remove")
     @Log(title = "问卷答题", businessType = BusinessType.DELETE)
-	@DeleteMapping("/{ids}")
-    public AjaxResult remove(@PathVariable Long[] ids)
-    {
+    @DeleteMapping("/{ids}")
+    public AjaxResult remove(@PathVariable Long[] ids) {
         return toAjax(mdXhQuestionsService.deleteMdXhQuestionsByIds(ids));
+    }
+
+    /**
+     * 判断用户是否可以开始答题
+     *
+     * @param userId 用户 ID
+     * @return
+     */
+    @GetMapping("/canAnswerTheQuestion")
+    public AjaxResult canAnswerTheQuestion(@RequestParam("userId") Long userId) {
+        iMdXhQuestionsService.isWatchVideo(userId);
+        return AjaxResult.success();
+    }
+
+    /**
+     * 用户提交题目
+     *
+     * @param mdQuestion
+     * @return
+     */
+    @Log(title = "问卷答题", businessType = BusinessType.INSERT)
+    @PostMapping("/addUserQuestions")
+    public AjaxResult addUserQuestions(@RequestBody List<MdXhQuestions> mdQuestion) {
+        return AjaxResult.success(mdXhQuestionsService.addUserQuestions(mdQuestion));
     }
 }

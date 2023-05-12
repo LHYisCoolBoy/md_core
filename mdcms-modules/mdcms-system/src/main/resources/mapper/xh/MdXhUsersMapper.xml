@@ -1,45 +1,76 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper
-PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.cms.xh.mapper.MdXhUsersMapper">
-    
-    <resultMap type="com.cms.xh.domain.MdXhUsers" id="MdXhUsersResult">
-        <result property="id"    column="id"    />
-        <result property="name"    column="name"    />
-        <result property="password"    column="password"    />
-        <result property="watchTime"    column="watch_time"    />
-        <result property="watchCount"    column="watch_count"    />
-        <result property="score"    column="score"    />
-        <result property="num"    column="num"    />
-        <result property="createTime"    column="create_time"    />
-        <result property="updateTime"    column="update_time"    />
-        <result property="isDelete"    column="is_delete"    />
+
+    <resultMap type="com.cms.xh.domain.vo.MdXhUsersVO" id="MdXhUsersResult">
+        <result property="id" column="id"/>
+        <result property="userId" column="user_id"/>
+        <result property="nickName" column="nick_name"/>
+        <result property="watchTime" column="watch_time"/>
+        <result property="watchCount" column="watch_count"/>
+        <result property="score" column="score"/>
+        <result property="num" column="num"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateTime" column="update_time"/>
+        <result property="isDelete" column="is_delete"/>
+    </resultMap>
+
+    <resultMap id="getByUserIdResult" type="com.cms.xh.domain.MdXhUsers">
+        <result property="id" column="id"/>
+        <result property="userId" column="user_id"/>
+        <result property="watchTime" column="watch_time"/>
+        <result property="watchCount" column="watch_count"/>
+        <result property="score" column="score"/>
+        <result property="num" column="num"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateTime" column="update_time"/>
+        <result property="isDelete" column="is_delete"/>
     </resultMap>
 
     <sql id="selectMdXhUsersVo">
-        select id, name, password, watch_time, watch_count, score, num, create_time, update_time, is_delete from md_xh_users
+        select id,
+               user_id,
+               watch_time,
+               watch_count,
+               score,
+               num,
+               create_time,
+               update_time,
+               is_delete
+        from md_xh_users
     </sql>
-
-    <select id="selectMdXhUsersList" parameterType="com.cms.xh.domain.MdXhUsers" resultMap="MdXhUsersResult">
-        <include refid="selectMdXhUsersVo"/>
-        <where>  
-            <if test="name != null  and name != ''"> and name like concat('%', #{name}, '%')</if>
-            <if test="score != null "> and score = #{score}</if>
-            <if test="num != null "> and num = #{num}</if>
+    <select id="selectMdXhUsersList" parameterType="com.cms.xh.domain.vo.MdXhUsersVO"
+            resultMap="MdXhUsersResult">
+        select id,
+        mdxu.user_id,
+        sysu.nick_name,
+        watch_time,
+        watch_count,
+        score,
+        num,
+        mdxu.create_time,
+        mdxu.update_time,
+        is_delete
+        from md_xh_users as mdxu
+        inner join sys_user as sysu on mdxu.user_id = sysu.user_id
+        <where>
+            <if test="nickName != null and nickName != ''">and sysu.nick_name = #{nickName}</if>
+            <if test="score != null ">and score = #{score}</if>
+            <if test="num != null ">and num = #{num}</if>
         </where>
     </select>
-    
+
     <select id="selectMdXhUsersById" parameterType="Long" resultMap="MdXhUsersResult">
         <include refid="selectMdXhUsersVo"/>
         where id = #{id}
     </select>
-        
+
     <insert id="insertMdXhUsers" parameterType="com.cms.xh.domain.MdXhUsers" useGeneratedKeys="true" keyProperty="id">
         insert into md_xh_users
         <trim prefix="(" suffix=")" suffixOverrides=",">
-            <if test="name != null">name,</if>
-            <if test="password != null">password,</if>
+            <if test="userId != null">user_id,</if>
             <if test="watchTime != null">watch_time,</if>
             <if test="watchCount != null">watch_count,</if>
             <if test="score != null">score,</if>
@@ -47,10 +78,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="createTime != null">create_time,</if>
             <if test="updateTime != null">update_time,</if>
             <if test="isDelete != null">is_delete,</if>
-         </trim>
+        </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
-            <if test="name != null">#{name},</if>
-            <if test="password != null">#{password},</if>
+            <if test="userId != null">#{userId},</if>
             <if test="watchTime != null">#{watchTime},</if>
             <if test="watchCount != null">#{watchCount},</if>
             <if test="score != null">#{score},</if>
@@ -58,14 +88,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="createTime != null">#{createTime},</if>
             <if test="updateTime != null">#{updateTime},</if>
             <if test="isDelete != null">#{isDelete},</if>
-         </trim>
+        </trim>
     </insert>
 
     <update id="updateMdXhUsers" parameterType="com.cms.xh.domain.MdXhUsers">
         update md_xh_users
         <trim prefix="SET" suffixOverrides=",">
-            <if test="name != null">name = #{name},</if>
-            <if test="password != null">password = #{password},</if>
+            <if test="userId != null">user_id = #{userId},</if>
             <if test="watchTime != null">watch_time = #{watchTime},</if>
             <if test="watchCount != null">watch_count = #{watchCount},</if>
             <if test="score != null">score = #{score},</if>
@@ -78,13 +107,74 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </update>
 
     <delete id="deleteMdXhUsersById" parameterType="Long">
-        delete from md_xh_users where id = #{id}
+        delete
+        from md_xh_users
+        where id = #{id}
     </delete>
 
     <delete id="deleteMdXhUsersByIds" parameterType="String">
-        delete from md_xh_users where id in 
+        delete from md_xh_users where id in
         <foreach item="id" collection="array" open="(" separator="," close=")">
             #{id}
         </foreach>
     </delete>
+
+    <update id="updateUserWatchCount" parameterType="long">
+        update md_xh_users
+        set watch_count = watch_count + 1
+        <where>
+            and is_delete = 0
+            <if test="id != null">
+                and user_id = #{userId}
+            </if>
+        </where>
+    </update>
+    <update id="updateUserWatchTime" parameterType="long">
+        update md_xh_users
+        <set>
+            <if test="watchTime != null">
+                watch_time = watch_time + #{watchTime}
+            </if>
+        </set>
+        <where>
+            and is_delete = 0
+            <if test="id != null">
+                and user_id = #{userId}
+            </if>
+        </where>
+    </update>
+    <update id="updateUserScore">
+        update md_xh_users
+        <set>
+            <if test="score != null">score = score + #{score}</if>
+        </set>
+        <where>
+            <if test="userId != null">user_id = #{userId}</if>
+        </where>
+    </update>
+
+    <select id="getByUserId" parameterType="long" resultMap="getByUserIdResult">
+        select id,
+               user_id,
+               watch_time,
+               watch_count,
+               score,
+               num,
+               create_time,
+               update_time,
+               is_delete
+        from md_xh_users
+        where user_id = #{userId}
+    </select>
+
+    <update id="updateByWatchCountAndNum" parameterType="long">
+        update md_xh_users
+        set watch_count = 2,
+        watch_time = 0,
+        score = 0,
+        num = 1
+        <where>
+            <if test="userId != null">user_id = #{userId}</if>
+        </where>
+    </update>
 </mapper>

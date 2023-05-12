@@ -3,6 +3,9 @@ package com.cms.xh.controller;
 import java.util.List;
 import java.io.IOException;
 import javax.servlet.http.HttpServletResponse;
+
+import com.cms.xh.domain.MdXhUsers;
+import com.cms.xh.domain.vo.MdXhUsersVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -15,7 +18,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.cms.common.log.annotation.Log;
 import com.cms.common.log.enums.BusinessType;
 import com.cms.common.security.annotation.PreAuthorize;
-import com.cms.xh.domain.MdXhUsers;
 import com.cms.xh.service.IMdXhUsersService;
 import com.cms.common.core.web.controller.BaseController;
 import com.cms.common.core.web.domain.AjaxResult;
@@ -30,8 +32,7 @@ import com.cms.common.core.web.page.TableDataInfo;
  */
 @RestController
 @RequestMapping("/users")
-public class MdXhUsersController extends BaseController
-{
+public class MdXhUsersController extends BaseController {
     @Autowired
     private IMdXhUsersService mdXhUsersService;
 
@@ -40,10 +41,9 @@ public class MdXhUsersController extends BaseController
      */
     @PreAuthorize(hasPermi = "system:users:list")
     @GetMapping("/list")
-    public TableDataInfo list(MdXhUsers mdXhUsers)
-    {
+    public TableDataInfo list(MdXhUsersVO mdXhUsers) {
         startPage();
-        List<MdXhUsers> list = mdXhUsersService.selectMdXhUsersList(mdXhUsers);
+        List<MdXhUsersVO> list = mdXhUsersService.selectMdXhUsersList(mdXhUsers);
         return getDataTable(list);
     }
 
@@ -53,10 +53,9 @@ public class MdXhUsersController extends BaseController
     @PreAuthorize(hasPermi = "system:users:export")
     @Log(title = "用户信息", businessType = BusinessType.EXPORT)
     @PostMapping("/export")
-    public void export(HttpServletResponse response, MdXhUsers mdXhUsers) throws IOException
-    {
-        List<MdXhUsers> list = mdXhUsersService.selectMdXhUsersList(mdXhUsers);
-        ExcelUtil<MdXhUsers> util = new ExcelUtil<MdXhUsers>(MdXhUsers.class);
+    public void export(HttpServletResponse response, MdXhUsersVO mdXhUsers) throws IOException {
+        List<MdXhUsersVO> list = mdXhUsersService.selectMdXhUsersList(mdXhUsers);
+        ExcelUtil<MdXhUsersVO> util = new ExcelUtil<MdXhUsersVO>(MdXhUsersVO.class);
         util.exportExcel(response, list, "users");
     }
 
@@ -65,8 +64,7 @@ public class MdXhUsersController extends BaseController
      */
     @PreAuthorize(hasPermi = "system:users:query")
     @GetMapping(value = "/{id}")
-    public AjaxResult getInfo(@PathVariable("id") Long id)
-    {
+    public AjaxResult getInfo(@PathVariable("id") Long id) {
         return AjaxResult.success(mdXhUsersService.selectMdXhUsersById(id));
     }
 
@@ -76,8 +74,7 @@ public class MdXhUsersController extends BaseController
     @PreAuthorize(hasPermi = "system:users:add")
     @Log(title = "用户信息", businessType = BusinessType.INSERT)
     @PostMapping
-    public AjaxResult add(@RequestBody MdXhUsers mdXhUsers)
-    {
+    public AjaxResult add(@RequestBody MdXhUsers mdXhUsers) {
         return toAjax(mdXhUsersService.insertMdXhUsers(mdXhUsers));
     }
 
@@ -87,8 +84,7 @@ public class MdXhUsersController extends BaseController
     @PreAuthorize(hasPermi = "system:users:edit")
     @Log(title = "用户信息", businessType = BusinessType.UPDATE)
     @PutMapping
-    public AjaxResult edit(@RequestBody MdXhUsers mdXhUsers)
-    {
+    public AjaxResult edit(@RequestBody MdXhUsers mdXhUsers) {
         return toAjax(mdXhUsersService.updateMdXhUsers(mdXhUsers));
     }
 
@@ -97,9 +93,8 @@ public class MdXhUsersController extends BaseController
      */
     @PreAuthorize(hasPermi = "system:users:remove")
     @Log(title = "用户信息", businessType = BusinessType.DELETE)
-	@DeleteMapping("/{ids}")
-    public AjaxResult remove(@PathVariable Long[] ids)
-    {
+    @DeleteMapping("/{ids}")
+    public AjaxResult remove(@PathVariable Long[] ids) {
         return toAjax(mdXhUsersService.deleteMdXhUsersByIds(ids));
     }
 }
