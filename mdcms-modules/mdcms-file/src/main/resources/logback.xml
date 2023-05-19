@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration scan="true" scanPeriod="60 seconds" debug="false">
     <!-- 日志存放路径 -->
-	<property name="log.path" value="logs/mdcms-file" />
+	<property name="log.path" value="logs/md-disk" />
    <!-- 日志输出格式 -->
 	<property name="log.pattern" value="%d{HH:mm:ss.SSS} [%thread] %-5level %logger{20} - [%method,%line] - %msg%n" />
 
@@ -19,8 +19,8 @@
 		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
             <!-- 日志文件名格式 -->
 			<fileNamePattern>${log.path}/info.%d{yyyy-MM-dd}.log</fileNamePattern>
-			<!-- 日志最大的历史 60天 -->
-			<maxHistory>60</maxHistory>
+			<!-- 日志最大的历史 3天 -->
+			<maxHistory>3</maxHistory>
 		</rollingPolicy>
 		<encoder>
 			<pattern>${log.pattern}</pattern>
@@ -42,14 +42,14 @@
             <!-- 日志文件名格式 -->
             <fileNamePattern>${log.path}/error.%d{yyyy-MM-dd}.log</fileNamePattern>
 			<!-- 日志最大的历史 60天 -->
-			<maxHistory>60</maxHistory>
+			<maxHistory>3</maxHistory>
         </rollingPolicy>
         <encoder>
             <pattern>${log.pattern}</pattern>
         </encoder>
         <filter class="ch.qos.logback.classic.filter.LevelFilter">
             <!-- 过滤的级别 -->
-            <level>ERROR</level>
+            <level>INFO</level>
 			<!-- 匹配时的操作：接收（记录） -->
             <onMatch>ACCEPT</onMatch>
 			<!-- 不匹配时的操作：拒绝（不记录） -->

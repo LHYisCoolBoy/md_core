@@ -20,6 +20,6 @@ public class MDcmsFileApplication
     public static void main(String[] args)
     {
         SpringApplication.run(MDcmsFileApplication.class, args);
-        System.out.println("(♥◠‿◠)ﾉﾞ  文件服务模块启动成功   ლ(´ڡ`ლ)ﾞ  \n");
+        System.out.println("(♥◠‿◠)ﾉﾞ  网盘服务模块启动成功   ლ(´ڡ`ლ)ﾞ  \n");
     }
 }

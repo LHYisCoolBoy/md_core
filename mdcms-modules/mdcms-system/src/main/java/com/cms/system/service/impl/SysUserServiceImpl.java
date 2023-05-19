@@ -33,6 +33,7 @@ import com.cms.system.service.ISysUserService;
  * @author mdcms  官方网站：www.mdcms.vip
  */
 @Service
+
 public class SysUserServiceImpl implements ISysUserService
 {
     private static final Logger log = LoggerFactory.getLogger(SysUserServiceImpl.class);

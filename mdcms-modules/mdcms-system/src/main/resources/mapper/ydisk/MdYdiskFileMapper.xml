@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cms.ydisk.mapper.MdYdiskFileMapper">
+
+    <resultMap type="com.cms.ydisk.domain.MdYdiskFile" id="MdYdiskFileResult">
+        <result property="id" column="id"/>
+        <result property="name" column="name"/>
+        <result property="url" column="url"/>
+        <result property="time" column="time"/>
+        <result property="deptId" column="dept_id"/>
+        <result property="userId" column="user_id"/>
+    </resultMap>
+
+    <sql id="selectMdYdiskFileVo">
+        SELECT id, name, url, time, dept_id, user_id
+        FROM md_ydisk_file
+    </sql>
+
+    <select id="selectMdYdiskFileList" parameterType="MdYdiskFile" resultMap="MdYdiskFileResult">
+        <include refid="selectMdYdiskFileVo"/>
+        <where>
+            <if test="name != null  and name != ''">and name like concat('%', #{name}, '%')</if>
+            <if test="url != null  and url != ''">and url = #{url}</if>
+            <if test="time != null ">and time = #{time}</if>
+            <if test="deptId != null ">and dept_id = #{deptId}</if>
+            <if test="userId != null ">and user_id = #{userId}</if>
+        </where>
+    </select>
+
+    <select id="selectMdYdiskFileById" parameterType="Long" resultMap="MdYdiskFileResult">
+        <include refid="selectMdYdiskFileVo"/>
+        where id = #{id}
+    </select>
+
+    <insert id="insertMdYdiskFile" parameterType="MdYdiskFile" useGeneratedKeys="true" keyProperty="id">
+        insert into md_ydisk_file
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="name != null">name,</if>
+            <if test="url != null">url,</if>
+            <if test="time != null">time,</if>
+            <if test="deptId != null">dept_id,</if>
+            <if test="userId != null">user_id,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="name != null">#{name},</if>
+            <if test="url != null">#{url},</if>
+            <if test="time != null">#{time},</if>
+            <if test="deptId != null">#{deptId},</if>
+            <if test="userId != null">#{userId},</if>
+        </trim>
+    </insert>
+
+    <update id="updateMdYdiskFile" parameterType="MdYdiskFile">
+        update md_ydisk_file
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="name != null">name = #{name},</if>
+            <if test="url != null">url = #{url},</if>
+            <if test="time != null">time = #{time},</if>
+            <if test="deptId != null">dept_id = #{deptId},</if>
+            <if test="userId != null">user_id = #{userId},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteMdYdiskFileById" parameterType="Long">
+        DELETE
+        FROM md_ydisk_file
+        WHERE id = #{id}
+    </delete>
+
+    <delete id="deleteMdYdiskFileByIds" parameterType="String">
+        delete from md_ydisk_file where id in
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>

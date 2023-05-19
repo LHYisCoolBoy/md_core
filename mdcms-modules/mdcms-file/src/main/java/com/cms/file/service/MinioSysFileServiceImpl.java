@@ -30,6 +30,7 @@ public class MinioSysFileServiceImpl implements ISysFileService {
      * @throws Exception
      */
     public String uploadFile(MultipartFile file, String type) throws Exception {
+        /*
         String fileName = FileUploadUtils.extractFilename(file);
         PutObjectArgs args = PutObjectArgs.builder()
                 .bucket(minioConfig.getBucketName())
@@ -40,6 +41,8 @@ public class MinioSysFileServiceImpl implements ISysFileService {
                 .build();
         client.putObject(args);
         return minioConfig.getUrl() + "/" + minioConfig.getBucketName() + "/" + fileName;
+        */
+        return null;
     }
 
 }
