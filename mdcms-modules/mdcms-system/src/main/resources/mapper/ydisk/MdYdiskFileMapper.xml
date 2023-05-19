@@ -18,7 +18,7 @@
         FROM md_ydisk_file
     </sql>
 
-    <select id="selectMdYdiskFileList" parameterType="MdYdiskFile" resultMap="MdYdiskFileResult">
+    <select id="selectMdYdiskFileList" parameterType="com.cms.ydisk.domain.MdYdiskFile" resultMap="MdYdiskFileResult">
         <include refid="selectMdYdiskFileVo"/>
         <where>
             <if test="name != null  and name != ''">and name like concat('%', #{name}, '%')</if>
@@ -34,7 +34,7 @@
         where id = #{id}
     </select>
 
-    <insert id="insertMdYdiskFile" parameterType="MdYdiskFile" useGeneratedKeys="true" keyProperty="id">
+    <insert id="insertMdYdiskFile" parameterType="com.cms.ydisk.domain.MdYdiskFile" useGeneratedKeys="true" keyProperty="id">
         insert into md_ydisk_file
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="name != null">name,</if>
@@ -52,7 +52,7 @@
         </trim>
     </insert>
 
-    <update id="updateMdYdiskFile" parameterType="MdYdiskFile">
+    <update id="updateMdYdiskFile" parameterType="com.cms.ydisk.domain.MdYdiskFile">
         update md_ydisk_file
         <trim prefix="SET" suffixOverrides=",">
             <if test="name != null">name = #{name},</if>
