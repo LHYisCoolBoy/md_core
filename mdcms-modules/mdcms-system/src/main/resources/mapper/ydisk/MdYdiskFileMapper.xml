@@ -61,7 +61,7 @@
             <if test="deptId != null">dept_id = #{deptId},</if>
             <if test="userId != null">user_id = #{userId},</if>
         </trim>
-        where id = #{id}
+        where id = #{id} and 1=1
     </update>
 
     <delete id="deleteMdYdiskFileById" parameterType="Long">
