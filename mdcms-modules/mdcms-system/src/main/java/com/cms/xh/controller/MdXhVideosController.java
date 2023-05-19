@@ -106,7 +106,7 @@ public class MdXhVideosController extends BaseController {
     /**
      * 根据用户 ID 累计用户观看时间
      *
-     * @param userId        用户 ID
+     * @param userId    用户 ID
      * @param watchTime 用户观看时间
      * @return
      */
@@ -115,6 +115,14 @@ public class MdXhVideosController extends BaseController {
     public AjaxResult updateUserWatchTime(@RequestParam("userId") Long userId,
                                           @RequestParam("watchTime") Long watchTime) {
         return toAjax(mdXhVideosService.updateUserWatchTime(userId, watchTime));
+    }
+
+    /**
+     * 获取视频信息详细信息
+     */
+    @GetMapping(value = "/getVideoInfo")
+    public AjaxResult getInfo() {
+        return AjaxResult.success(mdXhVideosService.selectMdXhVideos());
     }
 
 }

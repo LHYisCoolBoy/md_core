@@ -14,11 +14,39 @@
         <result property="isDelete" column="is_delete"/>
     </resultMap>
 
+    <resultMap type="com.cms.xh.domain.vo.MdXhQuestionsVO" id="MdXhQuestionsVOResult">
+        <result property="id" column="id"/>
+        <result property="userId" column="user_id"/>
+        <result property="nickName" column="nick_name"/>
+        <result property="topicId" column="topic_id"/>
+        <result property="userAnswer" column="user_answer"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateTime" column="update_time"/>
+        <result property="isDelete" column="is_delete"/>
+    </resultMap>
+
     <sql id="selectMdXhQuestionsVo">
         select id, user_id, topic_id, user_answer, create_time, update_time, is_delete
         from md_xh_questions
     </sql>
 
+    <!--<select id="selectMdXhQuestionsList" parameterType="com.cms.xh.domain.vo.MdXhQuestionsVO"
+            resultMap="MdXhQuestionsVOResult">
+        select id,
+        mdxq.user_id,
+        sysu.nick_name,
+        topic_id,
+        user_answer,
+        mdxq.create_time,
+        mdxq.update_time,
+        is_delete
+        from md_xh_questions as mdxq
+        inner join sys_user as sysu on mdxq.user_id = sysu.user_id;
+        <where>
+            <if test="userId != null ">and mdxq.user_id = #{userId}</if>
+            <if test="topicId != null ">and topic_id = #{topicId}</if>
+        </where>
+    </select>-->
     <select id="selectMdXhQuestionsList" parameterType="com.cms.xh.domain.MdXhQuestions"
             resultMap="MdXhQuestionsResult">
         <include refid="selectMdXhQuestionsVo"/>

@@ -155,16 +155,18 @@
 
     <select id="getByUserId" parameterType="long" resultMap="getByUserIdResult">
         select id,
-               user_id,
-               watch_time,
-               watch_count,
-               score,
-               num,
-               create_time,
-               update_time,
-               is_delete
+        user_id,
+        watch_time,
+        watch_count,
+        score,
+        num,
+        create_time,
+        update_time,
+        is_delete
         from md_xh_users
-        where user_id = #{userId}
+        <where>
+            <if test="userId != null">user_id = #{userId}</if>
+        </where>
     </select>
 
     <update id="updateByWatchCountAndNum" parameterType="long">

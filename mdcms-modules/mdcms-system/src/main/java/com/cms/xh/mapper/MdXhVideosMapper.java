@@ -22,6 +22,13 @@ public interface MdXhVideosMapper {
     public MdXhVideos selectMdXhVideosById(Long id);
 
     /**
+     * 查询视频信息
+     *
+     * @return 视频信息
+     */
+    public List<MdXhVideos> selectMdXhVideos();
+
+    /**
      * 查询视频信息列表
      *
      * @param mdXhVideos 视频信息

@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.cms.system.domain.md.MdQuestion;
 import com.cms.xh.domain.MdXhQuestions;
+import com.cms.xh.domain.vo.MdXhQuestionsVO;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 
@@ -29,7 +30,7 @@ public interface MdXhQuestionsMapper {
      * @param mdXhQuestions 问卷答题
      * @return 问卷答题集合
      */
-    public List<MdXhQuestions> selectMdXhQuestionsList(MdXhQuestions mdXhQuestions);
+    public List<MdXhQuestionsVO> selectMdXhQuestionsList(MdXhQuestionsVO mdXhQuestions);
 
     /**
      * 新增问卷答题

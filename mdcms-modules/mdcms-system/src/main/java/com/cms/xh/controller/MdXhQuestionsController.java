@@ -5,6 +5,7 @@ import java.io.IOException;
 import javax.servlet.http.HttpServletResponse;
 
 import com.cms.common.core.exception.BaseException;
+import com.cms.xh.domain.vo.MdXhQuestionsVO;
 import com.cms.xh.service.IMdXhVideosService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -38,9 +39,9 @@ public class MdXhQuestionsController extends BaseController {
      */
     @PreAuthorize(hasPermi = "system:questions:list")
     @GetMapping("/list")
-    public TableDataInfo list(MdXhQuestions mdXhQuestions) {
+    public TableDataInfo list(MdXhQuestionsVO mdXhQuestions) {
         startPage();
-        List<MdXhQuestions> list = mdXhQuestionsService.selectMdXhQuestionsList(mdXhQuestions);
+        List<MdXhQuestionsVO> list = mdXhQuestionsService.selectMdXhQuestionsList(mdXhQuestions);
         return getDataTable(list);
     }
 
@@ -50,9 +51,9 @@ public class MdXhQuestionsController extends BaseController {
     @PreAuthorize(hasPermi = "system:questions:export")
     @Log(title = "问卷答题", businessType = BusinessType.EXPORT)
     @PostMapping("/export")
-    public void export(HttpServletResponse response, MdXhQuestions mdXhQuestions) throws IOException {
-        List<MdXhQuestions> list = mdXhQuestionsService.selectMdXhQuestionsList(mdXhQuestions);
-        ExcelUtil<MdXhQuestions> util = new ExcelUtil<MdXhQuestions>(MdXhQuestions.class);
+    public void export(HttpServletResponse response, MdXhQuestionsVO mdXhQuestions) throws IOException {
+        List<MdXhQuestionsVO> list = mdXhQuestionsService.selectMdXhQuestionsList(mdXhQuestions);
+        ExcelUtil<MdXhQuestionsVO> util = new ExcelUtil<MdXhQuestionsVO>(MdXhQuestionsVO.class);
         util.exportExcel(response, list, "questions");
     }
 

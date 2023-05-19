@@ -76,6 +76,10 @@
             <groupId>com.mdcms</groupId>
             <artifactId>mdcms-common-swagger</artifactId>
         </dependency>
+        <dependency>
+            <groupId>com.mdcms</groupId>
+            <artifactId>mdcms-common-core</artifactId>
+        </dependency>
 
     </dependencies>
 

@@ -40,6 +40,11 @@ public class MdXhVideosServiceImpl implements IMdXhVideosService {
         return mdXhVideosMapper.selectMdXhVideosById(id);
     }
 
+    @Override
+    public List<MdXhVideos> selectMdXhVideos() {
+        return mdXhVideosMapper.selectMdXhVideos();
+    }
+
     /**
      * 查询视频信息列表
      *

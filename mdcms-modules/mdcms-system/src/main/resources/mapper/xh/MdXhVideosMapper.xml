@@ -1,34 +1,39 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper
-PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.cms.xh.mapper.MdXhVideosMapper">
-    
+
     <resultMap type="com.cms.xh.domain.MdXhVideos" id="MdXhVideosResult">
-        <result property="id"    column="id"    />
-        <result property="title"    column="title"    />
-        <result property="videoUrl"    column="video_url"    />
-        <result property="coverUrl"    column="cover_url"    />
-        <result property="createTime"    column="create_time"    />
-        <result property="updateTime"    column="update_time"    />
-        <result property="isDelete"    column="is_delete"    />
+        <result property="id" column="id"/>
+        <result property="title" column="title"/>
+        <result property="videoUrl" column="video_url"/>
+        <result property="coverUrl" column="cover_url"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateTime" column="update_time"/>
+        <result property="isDelete" column="is_delete"/>
     </resultMap>
 
     <sql id="selectMdXhVideosVo">
-        select id, title, video_url, cover_url, create_time, update_time, is_delete from md_xh_videos
+        select id, title, video_url, cover_url, create_time, update_time, is_delete
+        from md_xh_videos
     </sql>
 
     <select id="selectMdXhVideosList" parameterType="com.cms.xh.domain.MdXhVideos" resultMap="MdXhVideosResult">
         <include refid="selectMdXhVideosVo"/>
-        <where>  
+        <where>
         </where>
     </select>
-    
+
     <select id="selectMdXhVideosById" parameterType="Long" resultMap="MdXhVideosResult">
         <include refid="selectMdXhVideosVo"/>
         where id = #{id}
     </select>
-        
+    <select id="selectMdXhVideos" resultMap="MdXhVideosResult">
+        select id, title, video_url, cover_url
+        from md_xh_videos;
+    </select>
+
     <insert id="insertMdXhVideos" parameterType="com.cms.xh.domain.MdXhVideos" useGeneratedKeys="true" keyProperty="id">
         insert into md_xh_videos
         <trim prefix="(" suffix=")" suffixOverrides=",">
@@ -38,7 +43,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="createTime != null">create_time,</if>
             <if test="updateTime != null">update_time,</if>
             <if test="isDelete != null">is_delete,</if>
-         </trim>
+        </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
             <if test="title != null">#{title},</if>
             <if test="videoUrl != null">#{videoUrl},</if>
@@ -46,7 +51,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="createTime != null">#{createTime},</if>
             <if test="updateTime != null">#{updateTime},</if>
             <if test="isDelete != null">#{isDelete},</if>
-         </trim>
+        </trim>
     </insert>
 
     <update id="updateMdXhVideos" parameterType="com.cms.xh.domain.MdXhVideos">
@@ -63,7 +68,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </update>
 
     <delete id="deleteMdXhVideosById" parameterType="Long">
-        delete from md_xh_videos where id = #{id}
+        delete
+        from md_xh_videos
+        where id = #{id}
     </delete>
 
     <delete id="deleteMdXhVideosByIds" parameterType="String">

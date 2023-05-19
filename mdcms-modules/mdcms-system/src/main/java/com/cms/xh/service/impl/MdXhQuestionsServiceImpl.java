@@ -6,6 +6,7 @@ import com.cms.common.core.exception.BaseException;
 import com.cms.common.core.utils.DateUtils;
 import com.cms.xh.domain.MdXhImgTable;
 import com.cms.xh.domain.MdXhUsers;
+import com.cms.xh.domain.vo.MdXhQuestionsVO;
 import com.cms.xh.domain.vo.MdXhTopicTypeAndAnswerVO;
 import com.cms.xh.mapper.MdXhImgTableMapper;
 import com.cms.xh.mapper.MdXhTopicMapper;
@@ -58,7 +59,7 @@ public class MdXhQuestionsServiceImpl implements IMdXhQuestionsService {
      * @return 问卷答题
      */
     @Override
-    public List<MdXhQuestions> selectMdXhQuestionsList(MdXhQuestions mdXhQuestions) {
+    public List<MdXhQuestionsVO> selectMdXhQuestionsList(MdXhQuestionsVO mdXhQuestions) {
         return mdXhQuestionsMapper.selectMdXhQuestionsList(mdXhQuestions);
     }
 
@@ -177,10 +178,10 @@ public class MdXhQuestionsServiceImpl implements IMdXhQuestionsService {
         }
         Long userId = mdQuestion.get(0).getUserId();
         MdXhUsers byUserId = mdXhUsersMapper.getByUserId(userId);
-        if (byUserId.getScore() >= 80) {
-            MdXhImgTable mdXhImgTable = mdXhImgTableMapper.getAll();
-            return mdXhImgTable.getImgUrl();
-        }
+            if (byUserId.getScore() >= 80) {
+                MdXhImgTable mdXhImgTable = mdXhImgTableMapper.getAll();
+                return mdXhImgTable.getImgUrl();
+            }
         if (byUserId.getScore() <= 80 && byUserId.getNum() != 1) {
             int result1 = mdXhUsersMapper.updateByWatchCountAndNum(byUserId.getUserId());
             if (result1 <= 0) {

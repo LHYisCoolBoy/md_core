@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cms.oa.mapper.MdOaProjectsMapper">
+
+    <resultMap type="com.cms.oa.domain.MdOaProjects" id="MdOaProjectsResult">
+        <result property="id" column="id"/>
+        <result property="userId" column="user_id"/>
+        <result property="deptId" column="dept_id"/>
+        <result property="name" column="name"/>
+        <result property="collaboratorId" column="collaborator_id"/>
+        <result property="collaboratorDeptId" column="collaborator_dept_id"/>
+        <result property="urgency" column="urgency"/>
+        <result property="description" column="description"/>
+        <result property="startTime" column="start_time"/>
+        <result property="endTime" column="end_time"/>
+        <result property="expenseSource" column="expense_source"/>
+        <result property="expenseAmount" column="expense_amount"/>
+        <result property="isPayment" column="is_payment"/>
+        <result property="isComplete" column="is_complete"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateTime" column="update_time"/>
+        <result property="isDelete" column="is_delete"/>
+    </resultMap>
+
+    <resultMap type="com.cms.oa.domain.vo.MdOaProjectsVO" id="MdOaProjectsVOResult">
+        <result property="id" column="id"/>
+        <result property="userId" column="user_id"/>
+        <result property="nickName" column="nick_name"/>
+        <result property="deptId" column="dept_id"/>
+        <result property="deptName" column="dept_name"/>
+        <result property="name" column="name"/>
+        <result property="collaboratorId" column="collaborator_id"/>
+        <result property="collaboratorName" column="collaborator_name"/>
+        <result property="collaboratorDeptId" column="collaborator_dept_id"/>
+        <result property="collaboratorDeptName" column="collaborator_dept_name"/>
+        <result property="urgency" column="urgency"/>
+        <result property="description" column="description"/>
+        <result property="startTime" column="start_time"/>
+        <result property="endTime" column="end_time"/>
+        <result property="expenseSource" column="expense_source"/>
+        <result property="expenseAmount" column="expense_amount"/>
+        <result property="isPayment" column="is_payment"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateTime" column="update_time"/>
+    </resultMap>
+
+    <sql id="selectMdOaProjectsVo">
+        select id,
+               user_id,
+               dept_id,
+               name,
+               collaborator_id,
+               collaborator_dept_id,
+               urgency,
+               description,
+               start_time,
+               end_time,
+               expense_source,
+               expense_amount,
+               is_payment,
+               is_complete,
+               create_time,
+               update_time,
+               is_delete
+        from md_oa_projects
+    </sql>
+
+    <select id="selectMdOaProjectsList" parameterType="com.cms.oa.domain.MdOaProjects" resultMap="MdOaProjectsResult">
+        <include refid="selectMdOaProjectsVo"/>
+        <where>
+            <if test="userId != null ">and user_id = #{userId}</if>
+            <if test="deptId != null ">and dept_id = #{deptId}</if>
+            <if test="name != null  and name != ''">and name like concat('%', #{name}, '%')</if>
+            <if test="isPayment != null ">and is_payment = #{isPayment}</if>
+        </where>
+    </select>
+
+    <select id="selectMdOaProjectsById" parameterType="Long" resultMap="MdOaProjectsResult">
+        <include refid="selectMdOaProjectsVo"/>
+        where id = #{id}
+    </select>
+
+    <insert id="insertMdOaProjects" parameterType="com.cms.oa.domain.MdOaProjects" useGeneratedKeys="true"
+            keyProperty="id">
+        insert into md_oa_projects
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="userId != null">user_id,</if>
+            <if test="deptId != null">dept_id,</if>
+            <if test="name != null">name,</if>
+            <if test="collaboratorId != null">collaborator_id,</if>
+            <if test="collaboratorDeptId != null">collaborator_dept_id,</if>
+            <if test="urgency != null">urgency,</if>
+            <if test="description != null">description,</if>
+            <if test="startTime != null">start_time,</if>
+            <if test="endTime != null">end_time,</if>
+            <if test="expenseSource != null">expense_source,</if>
+            <if test="expenseAmount != null">expense_amount,</if>
+            <if test="isPayment != null">is_payment,</if>
+            <if test="isComplete != null">is_complete,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateTime != null">update_time,</if>
+            <if test="isDelete != null">is_delete,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="userId != null">#{userId},</if>
+            <if test="deptId != null">#{deptId},</if>
+            <if test="name != null">#{name},</if>
+            <if test="collaboratorId != null">#{collaboratorId},</if>
+            <if test="collaboratorDeptId != null">#{collaboratorDeptId},</if>
+            <if test="urgency != null">#{urgency},</if>
+            <if test="description != null">#{description},</if>
+            <if test="startTime != null">#{startTime},</if>
+            <if test="endTime != null">#{endTime},</if>
+            <if test="expenseSource != null">#{expenseSource},</if>
+            <if test="expenseAmount != null">#{expenseAmount},</if>
+            <if test="isPayment != null">#{isPayment},</if>
+            <if test="isComplete != null">#{isComplete},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+            <if test="isDelete != null">#{isDelete},</if>
+        </trim>
+    </insert>
+
+    <update id="updateMdOaProjects" parameterType="com.cms.oa.domain.MdOaProjects">
+        update md_oa_projects
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="userId != null">user_id = #{userId},</if>
+            <if test="deptId != null">dept_id = #{deptId},</if>
+            <if test="name != null">name = #{name},</if>
+            <if test="collaboratorId != null">collaborator_id = #{collaboratorId},</if>
+            <if test="collaboratorDeptId != null">collaborator_dept_id = #{collaboratorDeptId},</if>
+            <if test="urgency != null">urgency = #{urgency},</if>
+            <if test="description != null">description = #{description},</if>
+            <if test="startTime != null">start_time = #{startTime},</if>
+            <if test="endTime != null">end_time = #{endTime},</if>
+            <if test="expenseSource != null">expense_source = #{expenseSource},</if>
+            <if test="expenseAmount != null">expense_amount = #{expenseAmount},</if>
+            <if test="isPayment != null">is_payment = #{isPayment},</if>
+            <if test="isComplete != null">is_complete = #{isComplete},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+            <if test="isDelete != null">is_delete = #{isDelete},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteMdOaProjectsById" parameterType="Long">
+        delete
+        from md_oa_projects
+        where id = #{id}
+    </delete>
+
+    <delete id="deleteMdOaProjectsByIds" parameterType="String">
+        delete from md_oa_projects where id in
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+    <select id="selectAllByUserIdAndIsComplete" parameterType="long" resultMap="MdOaProjectsVOResult">
+        select mdop.id,
+        mdop.user_id,
+        u.nick_name,
+        mdop.dept_id,
+        d.dept_name,
+        mdop.name,
+        mdop.collaborator_id,
+        u1.nick_name as collaborator_name,
+        mdop.collaborator_dept_id,
+        d1.dept_name as collaborator_dept_name,
+        mdop.urgency,
+        mdop.description,
+        mdop.start_time,
+        mdop.end_time,
+        mdop.expense_source,
+        mdop.expense_amount,
+        mdop.is_payment,
+        mdop.create_time,
+        mdop.update_time
+        from md_oa_projects as mdop
+        inner join sys_user as u on mdop.user_id = u.user_id
+        inner join sys_dept as d on mdop.dept_id = d.dept_id
+        inner join sys_user as u1 on mdop.collaborator_id = u1.user_id
+        inner join sys_dept as d1 on mdop.collaborator_dept_id = d1.dept_id
+        <where>
+            and mdop.is_delete = 0
+            <if test="id != null">and mdop.id = #{id}</if>
+            <if test="isComplete != null">and mdop.is_payment = #{isPayment}</if>
+            <if test="userId != null">
+                and (mdop.user_id = #{userId} or mdop.collaborator_id = #{userId})
+            </if>
+            <if test="name != null  and name != ''">and mdop.name like concat('%', #{name}, '%')</if>
+            <if test="isPayment != null ">and is_payment = #{isPayment}</if>
+        </where>
+    </select>
+
+    <update id="updateIsCompleteById" parameterType="long">
+        update md_oa_projects
+        set is_payment = 1,
+        update_time = now()
+        <where>
+            <if test="id != null">and id = #{id}</if>
+        </where>
+    </update>
+</mapper>

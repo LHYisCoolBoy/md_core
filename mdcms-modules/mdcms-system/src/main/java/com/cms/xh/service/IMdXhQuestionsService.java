@@ -3,6 +3,7 @@ package com.cms.xh.service;
 import java.util.List;
 
 import com.cms.xh.domain.MdXhQuestions;
+import com.cms.xh.domain.vo.MdXhQuestionsVO;
 
 /**
  * 问卷答题Service接口
@@ -25,7 +26,7 @@ public interface IMdXhQuestionsService {
      * @param mdXhQuestions 问卷答题
      * @return 问卷答题集合
      */
-    public List<MdXhQuestions> selectMdXhQuestionsList(MdXhQuestions mdXhQuestions);
+    public List<MdXhQuestionsVO> selectMdXhQuestionsList(MdXhQuestionsVO mdXhQuestions);
 
     /**
      * 新增问卷答题
