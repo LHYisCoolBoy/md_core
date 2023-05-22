@@ -34,12 +34,13 @@
         where id = #{id}
     </select>
 
-    <insert id="insertMdYdiskFile" parameterType="com.cms.ydisk.domain.MdYdiskFile" useGeneratedKeys="true" keyProperty="id">
+    <insert id="insertMdYdiskFile" parameterType="com.cms.ydisk.domain.MdYdiskFile" useGeneratedKeys="true"
+            keyProperty="id">
         insert into md_ydisk_file
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="name != null">name,</if>
             <if test="url != null">url,</if>
-            <if test="time != null">time,</if>
+            <if test="time != null">`time`,</if>
             <if test="deptId != null">dept_id,</if>
             <if test="userId != null">user_id,</if>
         </trim>
@@ -57,7 +58,7 @@
         <trim prefix="SET" suffixOverrides=",">
             <if test="name != null">name = #{name},</if>
             <if test="url != null">url = #{url},</if>
-            <if test="time != null">time = #{time},</if>
+            <if test="time != null">`time` = #{time},</if>
             <if test="deptId != null">dept_id = #{deptId},</if>
             <if test="userId != null">user_id = #{userId},</if>
         </trim>
@@ -76,4 +77,10 @@
             #{id}
         </foreach>
     </delete>
+
+    <select id="getDeptIdByUserId" resultType="Long">
+        SELECT dept_id
+        FROM sys_user
+        WHERE user_id = #{userId}
+    </select>
 </mapper>
