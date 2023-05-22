@@ -58,4 +58,6 @@ public interface MdYdiskFileMapper
      * @return 结果
      */
     public int deleteMdYdiskFileByIds(Long[] ids);
+
+    Long getDeptIdByUserId(Long userId);
 }

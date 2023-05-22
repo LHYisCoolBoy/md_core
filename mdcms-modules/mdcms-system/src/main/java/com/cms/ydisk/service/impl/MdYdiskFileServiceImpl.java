@@ -1,6 +1,7 @@
 package com.cms.ydisk.service.impl;
 
 import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.cms.ydisk.mapper.MdYdiskFileMapper;
@@ -14,8 +15,7 @@ import com.cms.ydisk.service.IMdYdiskFileService;
  * @date 2023-05-19
  */
 @Service
-public class MdYdiskFileServiceImpl implements IMdYdiskFileService
-{
+public class MdYdiskFileServiceImpl implements IMdYdiskFileService {
     @Autowired
     private MdYdiskFileMapper mdYdiskFileMapper;
 
@@ -26,8 +26,7 @@ public class MdYdiskFileServiceImpl implements IMdYdiskFileService
      * @return 捷电网盘
      */
     @Override
-    public MdYdiskFile selectMdYdiskFileById(Long id)
-    {
+    public MdYdiskFile selectMdYdiskFileById(Long id) {
         return mdYdiskFileMapper.selectMdYdiskFileById(id);
     }
 
@@ -38,8 +37,7 @@ public class MdYdiskFileServiceImpl implements IMdYdiskFileService
      * @return 捷电网盘
      */
     @Override
-    public List<MdYdiskFile> selectMdYdiskFileList(MdYdiskFile mdYdiskFile)
-    {
+    public List<MdYdiskFile> selectMdYdiskFileList(MdYdiskFile mdYdiskFile) {
         return mdYdiskFileMapper.selectMdYdiskFileList(mdYdiskFile);
     }
 
@@ -50,8 +48,8 @@ public class MdYdiskFileServiceImpl implements IMdYdiskFileService
      * @return 结果
      */
     @Override
-    public int insertMdYdiskFile(MdYdiskFile mdYdiskFile)
-    {
+    public int insertMdYdiskFile(MdYdiskFile mdYdiskFile) {
+        mdYdiskFile.setDeptId(mdYdiskFileMapper.getDeptIdByUserId(mdYdiskFile.getUserId()));
         return mdYdiskFileMapper.insertMdYdiskFile(mdYdiskFile);
     }
 
@@ -62,8 +60,8 @@ public class MdYdiskFileServiceImpl implements IMdYdiskFileService
      * @return 结果
      */
     @Override
-    public int updateMdYdiskFile(MdYdiskFile mdYdiskFile)
-    {
+    public int updateMdYdiskFile(MdYdiskFile mdYdiskFile) {
+        mdYdiskFile.setDeptId(mdYdiskFileMapper.getDeptIdByUserId(mdYdiskFile.getUserId()));
         return mdYdiskFileMapper.updateMdYdiskFile(mdYdiskFile);
     }
 
@@ -74,8 +72,7 @@ public class MdYdiskFileServiceImpl implements IMdYdiskFileService
      * @return 结果
      */
     @Override
-    public int deleteMdYdiskFileByIds(Long[] ids)
-    {
+    public int deleteMdYdiskFileByIds(Long[] ids) {
         return mdYdiskFileMapper.deleteMdYdiskFileByIds(ids);
     }
 
@@ -86,8 +83,7 @@ public class MdYdiskFileServiceImpl implements IMdYdiskFileService
      * @return 结果
      */
     @Override
-    public int deleteMdYdiskFileById(Long id)
-    {
+    public int deleteMdYdiskFileById(Long id) {
         return mdYdiskFileMapper.deleteMdYdiskFileById(id);
     }
 }

@@ -1,9 +1,11 @@
 package com.cms.ydisk.controller;
 
+import java.security.Security;
 import java.util.List;
 import java.io.IOException;
 import javax.servlet.http.HttpServletResponse;
 
+import com.cms.common.core.utils.SecurityUtils;
 import com.cms.ydisk.domain.MdYdiskFile;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -31,8 +33,7 @@ import com.cms.common.core.web.page.TableDataInfo;
  */
 @RestController
 @RequestMapping("/ydisk")
-public class MdYdiskFileController extends BaseController
-{
+public class MdYdiskFileController extends BaseController {
     @Autowired
     private IMdYdiskFileService mdYdiskFileService;
 
@@ -41,8 +42,7 @@ public class MdYdiskFileController extends BaseController
      */
     @PreAuthorize(hasPermi = "system:ydisk:list")
     @GetMapping("/list")
-    public TableDataInfo list(MdYdiskFile mdYdiskFile)
-    {
+    public TableDataInfo list(MdYdiskFile mdYdiskFile) {
         startPage();
         List<MdYdiskFile> list = mdYdiskFileService.selectMdYdiskFileList(mdYdiskFile);
         return getDataTable(list);
@@ -54,8 +54,7 @@ public class MdYdiskFileController extends BaseController
     @PreAuthorize(hasPermi = "system:ydisk:export")
     @Log(title = "捷电网盘", businessType = BusinessType.EXPORT)
     @PostMapping("/export")
-    public void export(HttpServletResponse response, MdYdiskFile mdYdiskFile) throws IOException
-    {
+    public void export(HttpServletResponse response, MdYdiskFile mdYdiskFile) throws IOException {
         List<MdYdiskFile> list = mdYdiskFileService.selectMdYdiskFileList(mdYdiskFile);
         ExcelUtil<MdYdiskFile> util = new ExcelUtil<MdYdiskFile>(MdYdiskFile.class);
         util.exportExcel(response, list, "ydisk");
@@ -66,8 +65,7 @@ public class MdYdiskFileController extends BaseController
      */
     @PreAuthorize(hasPermi = "system:ydisk:query")
     @GetMapping(value = "/{id}")
-    public AjaxResult getInfo(@PathVariable("id") Long id)
-    {
+    public AjaxResult getInfo(@PathVariable("id") Long id) {
         return AjaxResult.success(mdYdiskFileService.selectMdYdiskFileById(id));
     }
 
@@ -77,8 +75,8 @@ public class MdYdiskFileController extends BaseController
     @PreAuthorize(hasPermi = "system:ydisk:add")
     @Log(title = "捷电网盘", businessType = BusinessType.INSERT)
     @PostMapping
-    public AjaxResult add(@RequestBody MdYdiskFile mdYdiskFile)
-    {
+    public AjaxResult add(@RequestBody MdYdiskFile mdYdiskFile) {
+        mdYdiskFile.setUserId(SecurityUtils.getUserId());
         return toAjax(mdYdiskFileService.insertMdYdiskFile(mdYdiskFile));
     }
 
@@ -88,8 +86,8 @@ public class MdYdiskFileController extends BaseController
     @PreAuthorize(hasPermi = "system:ydisk:edit")
     @Log(title = "捷电网盘", businessType = BusinessType.UPDATE)
     @PutMapping
-    public AjaxResult edit(@RequestBody MdYdiskFile mdYdiskFile)
-    {
+    public AjaxResult edit(@RequestBody MdYdiskFile mdYdiskFile) {
+        mdYdiskFile.setUserId(SecurityUtils.getUserId());
         return toAjax(mdYdiskFileService.updateMdYdiskFile(mdYdiskFile));
     }
 
@@ -98,9 +96,8 @@ public class MdYdiskFileController extends BaseController
      */
     @PreAuthorize(hasPermi = "system:ydisk:remove")
     @Log(title = "捷电网盘", businessType = BusinessType.DELETE)
-	@DeleteMapping("/{ids}")
-    public AjaxResult remove(@PathVariable Long[] ids)
-    {
+    @DeleteMapping("/{ids}")
+    public AjaxResult remove(@PathVariable Long[] ids) {
         return toAjax(mdYdiskFileService.deleteMdYdiskFileByIds(ids));
     }
 }
