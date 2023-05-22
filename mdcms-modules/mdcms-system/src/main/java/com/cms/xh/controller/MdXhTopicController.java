@@ -3,6 +3,7 @@ package com.cms.xh.controller;
 import java.util.List;
 import java.io.IOException;
 import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -30,8 +31,7 @@ import com.cms.common.core.web.page.TableDataInfo;
  */
 @RestController
 @RequestMapping("/topic")
-public class MdXhTopicController extends BaseController
-{
+public class MdXhTopicController extends BaseController {
     @Autowired
     private IMdXhTopicService mdXhTopicService;
 
@@ -40,8 +40,7 @@ public class MdXhTopicController extends BaseController
      */
     @PreAuthorize(hasPermi = "system:topic:list")
     @GetMapping("/list")
-    public TableDataInfo list(MdXhTopic mdXhTopic)
-    {
+    public TableDataInfo list(MdXhTopic mdXhTopic) {
         startPage();
         List<MdXhTopic> list = mdXhTopicService.selectMdXhTopicList(mdXhTopic);
         return getDataTable(list);
@@ -53,8 +52,7 @@ public class MdXhTopicController extends BaseController
     @PreAuthorize(hasPermi = "system:topic:export")
     @Log(title = "题目", businessType = BusinessType.EXPORT)
     @PostMapping("/export")
-    public void export(HttpServletResponse response, MdXhTopic mdXhTopic) throws IOException
-    {
+    public void export(HttpServletResponse response, MdXhTopic mdXhTopic) throws IOException {
         List<MdXhTopic> list = mdXhTopicService.selectMdXhTopicList(mdXhTopic);
         ExcelUtil<MdXhTopic> util = new ExcelUtil<MdXhTopic>(MdXhTopic.class);
         util.exportExcel(response, list, "topic");
@@ -65,8 +63,7 @@ public class MdXhTopicController extends BaseController
      */
     @PreAuthorize(hasPermi = "system:topic:query")
     @GetMapping(value = "/{id}")
-    public AjaxResult getInfo(@PathVariable("id") Long id)
-    {
+    public AjaxResult getInfo(@PathVariable("id") Long id) {
         return AjaxResult.success(mdXhTopicService.selectMdXhTopicById(id));
     }
 
@@ -76,8 +73,7 @@ public class MdXhTopicController extends BaseController
     @PreAuthorize(hasPermi = "system:topic:add")
     @Log(title = "题目", businessType = BusinessType.INSERT)
     @PostMapping
-    public AjaxResult add(@RequestBody MdXhTopic mdXhTopic)
-    {
+    public AjaxResult add(@RequestBody MdXhTopic mdXhTopic) {
         return toAjax(mdXhTopicService.insertMdXhTopic(mdXhTopic));
     }
 
@@ -87,8 +83,7 @@ public class MdXhTopicController extends BaseController
     @PreAuthorize(hasPermi = "system:topic:edit")
     @Log(title = "题目", businessType = BusinessType.UPDATE)
     @PutMapping
-    public AjaxResult edit(@RequestBody MdXhTopic mdXhTopic)
-    {
+    public AjaxResult edit(@RequestBody MdXhTopic mdXhTopic) {
         return toAjax(mdXhTopicService.updateMdXhTopic(mdXhTopic));
     }
 
@@ -97,9 +92,13 @@ public class MdXhTopicController extends BaseController
      */
     @PreAuthorize(hasPermi = "system:topic:remove")
     @Log(title = "题目", businessType = BusinessType.DELETE)
-	@DeleteMapping("/{ids}")
-    public AjaxResult remove(@PathVariable Long[] ids)
-    {
+    @DeleteMapping("/{ids}")
+    public AjaxResult remove(@PathVariable Long[] ids) {
         return toAjax(mdXhTopicService.deleteMdXhTopicByIds(ids));
+    }
+
+    @GetMapping("/getAllTopic")
+    public AjaxResult getAllTopic() {
+        return AjaxResult.success(mdXhTopicService.getAll());
     }
 }

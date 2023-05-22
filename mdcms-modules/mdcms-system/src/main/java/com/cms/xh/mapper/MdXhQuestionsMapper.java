@@ -78,4 +78,6 @@ public interface MdXhQuestionsMapper {
      * @return
      */
     int deleteByUserId(Long userId);
+
+
 }

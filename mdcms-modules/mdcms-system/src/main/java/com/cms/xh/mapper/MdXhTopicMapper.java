@@ -68,4 +68,10 @@ public interface MdXhTopicMapper {
      * @return
      */
     MdXhTopicTypeAndAnswerVO getAllByTypeAndAnswer(Long topicId);
+
+    /**
+     * 获取所有题目信息
+     * @return
+     */
+    List<MdXhTopic> getAll();
 }

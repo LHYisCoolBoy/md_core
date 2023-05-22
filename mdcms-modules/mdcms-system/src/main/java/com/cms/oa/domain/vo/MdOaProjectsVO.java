@@ -100,6 +100,21 @@ public class MdOaProjectsVO extends BaseEntity {
     private String expenseAmount;
 
     /**
+     * 图片地址
+     */
+    private String imgUrl;
+
+    /**
+     * 视频地址
+     */
+    private String videoUrl;
+
+    /**
+     * 文件地址
+     */
+    private String fileUrl;
+
+    /**
      * 是否已支付（0 - 未支付，1 - 已支付）
      */
     private Long isPayment;
@@ -240,6 +255,30 @@ public class MdOaProjectsVO extends BaseEntity {
         return isPayment;
     }
 
+    public String getImgUrl() {
+        return imgUrl;
+    }
+
+    public void setImgUrl(String imgUrl) {
+        this.imgUrl = imgUrl;
+    }
+
+    public String getVideoUrl() {
+        return videoUrl;
+    }
+
+    public void setVideoUrl(String videoUrl) {
+        this.videoUrl = videoUrl;
+    }
+
+    public String getFileUrl() {
+        return fileUrl;
+    }
+
+    public void setFileUrl(String fileUrl) {
+        this.fileUrl = fileUrl;
+    }
+
     @Override
     public String toString() {
         return new ToStringBuilder(this, ToStringStyle.MULTI_LINE_STYLE)
@@ -257,6 +296,9 @@ public class MdOaProjectsVO extends BaseEntity {
                 .append("description", getDescription())
                 .append("startTime", getStartTime())
                 .append("endTime", getEndTime())
+                .append("imgUrl", getImgUrl())
+                .append("videoUrl", getVideoUrl())
+                .append("fileUrl", getFileUrl())
                 .append("expenseSource", getExpenseSource())
                 .append("expenseAmount", getExpenseAmount())
                 .append("isPayment", getIsPayment())

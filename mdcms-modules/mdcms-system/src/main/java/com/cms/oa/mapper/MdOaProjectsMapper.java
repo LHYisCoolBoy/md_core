@@ -78,4 +78,12 @@ public interface MdOaProjectsMapper {
      * @return
      */
     int updateIsCompleteById(@Param("id") Long id);
+
+    /**
+     * 根据用户 ID 查询协同人是否包含自己，展示在消息部分
+     *
+     * @param userId
+     * @return
+     */
+    int selectByCollaboratorId(@Param("userId") Long userId);
 }

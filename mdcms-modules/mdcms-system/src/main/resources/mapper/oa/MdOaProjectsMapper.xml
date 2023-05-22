@@ -42,6 +42,9 @@
         <result property="expenseSource" column="expense_source"/>
         <result property="expenseAmount" column="expense_amount"/>
         <result property="isPayment" column="is_payment"/>
+        <result property="imgUrl" column="img_url"/>
+        <result property="videoUrl" column="video_url"/>
+        <result property="fileUrl" column="file_url"/>
         <result property="createTime" column="create_time"/>
         <result property="updateTime" column="update_time"/>
     </resultMap>
@@ -177,6 +180,9 @@
         mdop.expense_source,
         mdop.expense_amount,
         mdop.is_payment,
+        mdoc.img_url,
+        mdoc.video_url,
+        mdoc.file_url,
         mdop.create_time,
         mdop.update_time
         from md_oa_projects as mdop
@@ -184,6 +190,7 @@
         inner join sys_dept as d on mdop.dept_id = d.dept_id
         inner join sys_user as u1 on mdop.collaborator_id = u1.user_id
         inner join sys_dept as d1 on mdop.collaborator_dept_id = d1.dept_id
+        inner join md_oa_completed as mdoc on mdop.id = mdoc.project_id
         <where>
             and mdop.is_delete = 0
             <if test="id != null">and mdop.id = #{id}</if>
@@ -204,4 +211,10 @@
             <if test="id != null">and id = #{id}</if>
         </where>
     </update>
+
+    <select id="selectByCollaboratorId" parameterType="long" resultType="java.lang.Integer">
+        select count(*)
+        from md_oa_projects
+        where collaborator_id = #{userId};
+    </select>
 </mapper>

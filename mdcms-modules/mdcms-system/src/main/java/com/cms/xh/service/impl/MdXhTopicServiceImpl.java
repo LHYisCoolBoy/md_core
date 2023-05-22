@@ -1,7 +1,11 @@
 package com.cms.xh.service.impl;
 
 import java.util.List;
+
+import com.cms.common.core.exception.BaseException;
 import com.cms.common.core.utils.DateUtils;
+import com.cms.common.log.annotation.Log;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.cms.xh.mapper.MdXhTopicMapper;
@@ -15,8 +19,8 @@ import com.cms.xh.service.IMdXhTopicService;
  * @date 2023-05-09
  */
 @Service
-public class MdXhTopicServiceImpl implements IMdXhTopicService
-{
+@Slf4j
+public class MdXhTopicServiceImpl implements IMdXhTopicService {
     @Autowired
     private MdXhTopicMapper mdXhTopicMapper;
 
@@ -27,8 +31,7 @@ public class MdXhTopicServiceImpl implements IMdXhTopicService
      * @return 题目
      */
     @Override
-    public MdXhTopic selectMdXhTopicById(Long id)
-    {
+    public MdXhTopic selectMdXhTopicById(Long id) {
         return mdXhTopicMapper.selectMdXhTopicById(id);
     }
 
@@ -39,8 +42,7 @@ public class MdXhTopicServiceImpl implements IMdXhTopicService
      * @return 题目
      */
     @Override
-    public List<MdXhTopic> selectMdXhTopicList(MdXhTopic mdXhTopic)
-    {
+    public List<MdXhTopic> selectMdXhTopicList(MdXhTopic mdXhTopic) {
         return mdXhTopicMapper.selectMdXhTopicList(mdXhTopic);
     }
 
@@ -51,8 +53,7 @@ public class MdXhTopicServiceImpl implements IMdXhTopicService
      * @return 结果
      */
     @Override
-    public int insertMdXhTopic(MdXhTopic mdXhTopic)
-    {
+    public int insertMdXhTopic(MdXhTopic mdXhTopic) {
         mdXhTopic.setCreateTime(DateUtils.getNowDate());
         return mdXhTopicMapper.insertMdXhTopic(mdXhTopic);
     }
@@ -64,8 +65,7 @@ public class MdXhTopicServiceImpl implements IMdXhTopicService
      * @return 结果
      */
     @Override
-    public int updateMdXhTopic(MdXhTopic mdXhTopic)
-    {
+    public int updateMdXhTopic(MdXhTopic mdXhTopic) {
         mdXhTopic.setUpdateTime(DateUtils.getNowDate());
         return mdXhTopicMapper.updateMdXhTopic(mdXhTopic);
     }
@@ -77,8 +77,7 @@ public class MdXhTopicServiceImpl implements IMdXhTopicService
      * @return 结果
      */
     @Override
-    public int deleteMdXhTopicByIds(Long[] ids)
-    {
+    public int deleteMdXhTopicByIds(Long[] ids) {
         return mdXhTopicMapper.deleteMdXhTopicByIds(ids);
     }
 
@@ -89,8 +88,22 @@ public class MdXhTopicServiceImpl implements IMdXhTopicService
      * @return 结果
      */
     @Override
-    public int deleteMdXhTopicById(Long id)
-    {
+    public int deleteMdXhTopicById(Long id) {
         return mdXhTopicMapper.deleteMdXhTopicById(id);
+    }
+
+    /**
+     * 获取哦所有题目信息
+     *
+     * @return
+     */
+    @Override
+    public List<MdXhTopic> getAll() {
+        List<MdXhTopic> all = mdXhTopicMapper.getAll();
+        if (all == null) {
+            log.info("MdXhTopicServiceImpl:getAll:all is {}", all);
+            throw new BaseException("查询失败，结果为空");
+        }
+        return all;
     }
 }

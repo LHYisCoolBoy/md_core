@@ -4,7 +4,9 @@ import java.util.List;
 import java.io.IOException;
 import javax.servlet.http.HttpServletResponse;
 
+import com.cms.common.core.exception.BaseException;
 import com.cms.oa.domain.vo.MdOaProjectsVO;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import com.cms.common.log.annotation.Log;
@@ -89,5 +91,16 @@ public class MdOaProjectsController extends BaseController {
     @DeleteMapping("/{ids}")
     public AjaxResult remove(@PathVariable Long[] ids) {
         return toAjax(mdOaProjectsService.deleteMdOaProjectsByIds(ids));
+    }
+
+    /**
+     * 根据用户 ID 查询协同人是否包含自己，展示在消息部分
+     *
+     * @param userId
+     * @return
+     */
+    @GetMapping("/selectByCollaboratorId")
+    public AjaxResult selectByCollaboratorId(@RequestParam("userId") Long userId) {
+        return AjaxResult.success(mdOaProjectsService.selectByCollaboratorId(userId));
     }
 }

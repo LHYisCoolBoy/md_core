@@ -92,4 +92,8 @@
         from md_xh_topic
         where id = #{topicId};
     </select>
+    <select id="getAll" resultType="com.cms.xh.domain.MdXhTopic">
+        select id, type, question, question_option
+        from md_xh_topic;
+    </select>
 </mapper>

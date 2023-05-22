@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.cms.oa.domain.MdOaProjects;
 import com.cms.oa.domain.vo.MdOaProjectsVO;
+import org.apache.ibatis.annotations.Param;
 
 /**
  * 项目Service接口
@@ -74,4 +75,12 @@ public interface IMdOaProjectsService {
      * @return
      */
     int updateIsCompleteById(Long id);
+
+    /**
+     * 根据用户 ID 查询协同人是否包含自己，展示在消息部分
+     *
+     * @param userId
+     * @return
+     */
+    int selectByCollaboratorId(Long userId);
 }

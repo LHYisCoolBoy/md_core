@@ -58,4 +58,10 @@ public interface IMdXhTopicService
      * @return 结果
      */
     public int deleteMdXhTopicById(Long id);
+
+    /**
+     * 获取所有题目信息
+     * @return
+     */
+    List<MdXhTopic> getAll();
 }

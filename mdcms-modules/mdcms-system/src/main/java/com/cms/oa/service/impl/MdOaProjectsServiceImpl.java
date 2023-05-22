@@ -6,6 +6,7 @@ import com.cms.common.core.exception.BaseException;
 import com.cms.common.core.utils.DateUtils;
 import com.cms.oa.domain.vo.MdOaProjectsVO;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.cms.oa.mapper.MdOaProjectsMapper;
@@ -125,5 +126,20 @@ public class MdOaProjectsServiceImpl implements IMdOaProjectsService {
             throw new BaseException("参数不能为空");
         }
         return mdOaProjectsMapper.updateIsCompleteById(id);
+    }
+
+    /**
+     * 根据用户 ID 查询协同人是否包含自己，展示在消息部分
+     *
+     * @param userId
+     * @return
+     */
+    @Override
+    public int selectByCollaboratorId(Long userId) {
+        if (userId == null) {
+            log.info("updateIsCompleteById:id is {}", userId);
+            throw new BaseException("参数不能为空");
+        }
+        return mdOaProjectsMapper.selectByCollaboratorId(userId);
     }
 }
