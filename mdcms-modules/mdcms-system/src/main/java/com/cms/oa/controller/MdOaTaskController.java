@@ -41,13 +41,13 @@ public class MdOaTaskController extends BaseController {
     /**
      * 根据项目 ID 更新该项目的是否已完成字段为已完成
      *
-     * @param id
+     * @param mdOaProjects
      * @return
      */
     @Log(title = "项目", businessType = BusinessType.UPDATE)
     @PostMapping("/updateIsCompleteById")
-    public AjaxResult updateIsCompleteById(@RequestParam("id") Long id) {
-        return toAjax(mdOaProjectsService.updateIsCompleteById(id));
+    public AjaxResult updateIsCompleteById(@RequestBody MdOaProjects mdOaProjects) {
+        return toAjax(mdOaProjectsService.updateIsCompleteById(mdOaProjects));
     }
 
     /**

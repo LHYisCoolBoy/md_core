@@ -1,10 +1,18 @@
 package com.cms.oa.service.impl;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.Duration;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.util.Date;
 import java.util.List;
 
 import com.cms.common.core.exception.BaseException;
 import com.cms.common.core.utils.DateUtils;
+import com.cms.oa.domain.MdOaCompleted;
 import com.cms.oa.domain.vo.MdOaProjectsVO;
+import com.cms.oa.mapper.MdOaCompletedMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +20,7 @@ import org.springframework.stereotype.Service;
 import com.cms.oa.mapper.MdOaProjectsMapper;
 import com.cms.oa.domain.MdOaProjects;
 import com.cms.oa.service.IMdOaProjectsService;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * 项目Service业务层处理
@@ -24,6 +33,9 @@ import com.cms.oa.service.IMdOaProjectsService;
 public class MdOaProjectsServiceImpl implements IMdOaProjectsService {
     @Autowired
     private MdOaProjectsMapper mdOaProjectsMapper;
+
+    @Autowired
+    private MdOaCompletedMapper mdOaCompletedMapper;
 
     /**
      * 查询项目
@@ -53,10 +65,32 @@ public class MdOaProjectsServiceImpl implements IMdOaProjectsService {
      * @param mdOaProjects 项目
      * @return 结果
      */
+    @Transactional
     @Override
     public int insertMdOaProjects(MdOaProjects mdOaProjects) {
         mdOaProjects.setCreateTime(DateUtils.getNowDate());
-        return mdOaProjectsMapper.insertMdOaProjects(mdOaProjects);
+        int result1 = mdOaProjectsMapper.insertMdOaProjects(mdOaProjects);
+        if (result1 <= 0) {
+            log.info("MdOaProjectsServiceImpl:insertMdOaProjects:result1 is {}", result1);
+            throw new BaseException("添加失败");
+        }
+        // 获取开始时间、结束时间、费用金额
+        String urgency = mdOaProjects.getUrgency();
+        Date startTime = mdOaProjects.getStartTime();
+        Date endTime = mdOaProjects.getEndTime();
+        String expenseAmount = mdOaProjects.getExpenseAmount();
+        long expenseAmountLong = Long.parseLong(expenseAmount);
+        // 获取开始时间和结束时间相差多少天
+        Long phaseDifferenceDays = this.getPhaseDifferenceDays(startTime, endTime);
+        if (phaseDifferenceDays < 40 || expenseAmountLong > 900) {
+            mdOaProjects.setUrgency("※※※※※");
+            int result = this.updateMdOaProjects(mdOaProjects);
+            if (result <= 0) {
+                log.info("MdOaProjectsServiceImpl:insertMdOaProjects:result is {}", result);
+                throw new BaseException("添加紧急程度失败");
+            }
+        }
+        return result1;
     }
 
     /**
@@ -116,16 +150,27 @@ public class MdOaProjectsServiceImpl implements IMdOaProjectsService {
     /**
      * 根据项目 ID 更新该项目的是否已完成字段为已完成
      *
-     * @param id
+     * @param mdOaProjects
      * @return
      */
+    @Transactional
     @Override
-    public int updateIsCompleteById(Long id) {
-        if (id == null) {
-            log.info("updateIsCompleteById:id is {}", id);
+    public int updateIsCompleteById(MdOaProjects mdOaProjects) {
+        if (mdOaProjects == null) {
+            log.info("updateIsCompleteById:mdOaProjects is {}", mdOaProjects);
             throw new BaseException("参数不能为空");
         }
-        return mdOaProjectsMapper.updateIsCompleteById(id);
+        int result = mdOaProjectsMapper.updateIsCompleteById(mdOaProjects);
+        if (result != 1) {
+            log.info("updateIsCompleteById:result is {}", result);
+            throw new BaseException("数据完成失败");
+        }
+        MdOaProjects mdOaProjects1 = this.selectMdOaProjectsById(mdOaProjects.getId());
+        MdOaCompleted newMdOaCompleted = new MdOaCompleted();
+        newMdOaCompleted.setUserId(mdOaProjects1.getUserId());
+        newMdOaCompleted.setDeptId(mdOaProjects1.getDeptId());
+        newMdOaCompleted.setProjectId(mdOaProjects.getId());
+        return mdOaCompletedMapper.insertMdOaCompleted(newMdOaCompleted);
     }
 
     /**
@@ -141,5 +186,15 @@ public class MdOaProjectsServiceImpl implements IMdOaProjectsService {
             throw new BaseException("参数不能为空");
         }
         return mdOaProjectsMapper.selectByCollaboratorId(userId);
+    }
+
+    private Long getPhaseDifferenceDays(Date startTime, Date endTime) {
+        LocalDateTime startDateTime = startTime.toInstant()
+                .atZone(ZoneId.systemDefault())
+                .toLocalDateTime();
+        LocalDateTime endDateTime = endTime.toInstant()
+                .atZone(ZoneId.systemDefault())
+                .toLocalDateTime();
+        return Duration.between(startDateTime, endDateTime).toDays();
     }
 }

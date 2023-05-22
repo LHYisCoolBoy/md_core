@@ -190,7 +190,7 @@
         inner join sys_dept as d on mdop.dept_id = d.dept_id
         inner join sys_user as u1 on mdop.collaborator_id = u1.user_id
         inner join sys_dept as d1 on mdop.collaborator_dept_id = d1.dept_id
-        inner join md_oa_completed as mdoc on mdop.id = mdoc.project_id
+        left join md_oa_completed as mdoc on mdop.id = mdoc.project_id
         <where>
             and mdop.is_delete = 0
             <if test="id != null">and mdop.id = #{id}</if>
@@ -198,12 +198,16 @@
             <if test="userId != null">
                 and (mdop.user_id = #{userId} or mdop.collaborator_id = #{userId})
             </if>
+            <if test="userId != null">
+                and (mdop.dept_id = #{deptId} or mdop.collaborator_dept_id = #{deptId})
+            </if>
             <if test="name != null  and name != ''">and mdop.name like concat('%', #{name}, '%')</if>
             <if test="isPayment != null ">and is_payment = #{isPayment}</if>
         </where>
     </select>
 
-    <update id="updateIsCompleteById" parameterType="long">
+    <update id="updateIsCompleteById" parameterType="com.cms.oa.domain.MdOaProjects" useGeneratedKeys="true"
+            keyProperty="id">
         update md_oa_projects
         set is_payment = 1,
         update_time = now()

@@ -74,10 +74,10 @@ public interface MdOaProjectsMapper {
     /**
      * 根据项目 ID 更新该项目的是否已完成字段为已完成
      *
-     * @param id
+     * @param mdOaProjects
      * @return
      */
-    int updateIsCompleteById(@Param("id") Long id);
+    int updateIsCompleteById(MdOaProjects mdOaProjects);
 
     /**
      * 根据用户 ID 查询协同人是否包含自己，展示在消息部分
