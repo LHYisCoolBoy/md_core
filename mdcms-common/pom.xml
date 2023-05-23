@@ -15,14 +15,24 @@
         <module>mdcms-common-swagger</module>
         <module>mdcms-common-security</module>
         <module>mdcms-common-datascope</module>
-		<module>mdcms-common-datasource</module>
+        <module>mdcms-common-datasource</module>
     </modules>
 
     <artifactId>mdcms-common</artifactId>
     <packaging>pom</packaging>
 
     <description>
-	    mdcms-common通用模块
+        mdcms-common通用模块
     </description>
-
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                    <skip>true</skip>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 </project>
