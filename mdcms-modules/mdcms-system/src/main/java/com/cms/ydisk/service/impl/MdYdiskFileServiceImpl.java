@@ -2,6 +2,8 @@ package com.cms.ydisk.service.impl;
 
 import java.util.List;
 
+import com.cms.system.mapper.SysDeptMapper;
+import com.cms.system.mapper.SysUserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.cms.ydisk.mapper.MdYdiskFileMapper;
@@ -18,6 +20,10 @@ import com.cms.ydisk.service.IMdYdiskFileService;
 public class MdYdiskFileServiceImpl implements IMdYdiskFileService {
     @Autowired
     private MdYdiskFileMapper mdYdiskFileMapper;
+    @Autowired
+    private SysUserMapper userMapper;
+    @Autowired
+    private SysDeptMapper deptMapper;
 
     /**
      * 查询捷电网盘
@@ -27,7 +33,15 @@ public class MdYdiskFileServiceImpl implements IMdYdiskFileService {
      */
     @Override
     public MdYdiskFile selectMdYdiskFileById(Long id) {
-        return mdYdiskFileMapper.selectMdYdiskFileById(id);
+        MdYdiskFile mdYdiskFile = mdYdiskFileMapper.selectMdYdiskFileById(id);
+        try{
+            mdYdiskFile.setDeptId(deptMapper.selectDeptById(Long.valueOf(mdYdiskFile.getDeptId())).getDeptName());
+            mdYdiskFile.setUserId(userMapper.selectUserById(Long.valueOf(mdYdiskFile.getUserId())).getNickName());
+        }catch (Exception e){
+            mdYdiskFile.setDeptId("未分配部门");
+            mdYdiskFile.setUserId("未知上传者");
+        }
+        return mdYdiskFile;
     }
 
     /**
@@ -49,7 +63,7 @@ public class MdYdiskFileServiceImpl implements IMdYdiskFileService {
      */
     @Override
     public int insertMdYdiskFile(MdYdiskFile mdYdiskFile) {
-        mdYdiskFile.setDeptId(mdYdiskFileMapper.getDeptIdByUserId(mdYdiskFile.getUserId()));
+        mdYdiskFile.setDeptId(mdYdiskFileMapper.getDeptIdByUserId(Long.valueOf(mdYdiskFile.getUserId())));
         return mdYdiskFileMapper.insertMdYdiskFile(mdYdiskFile);
     }
 
@@ -61,7 +75,7 @@ public class MdYdiskFileServiceImpl implements IMdYdiskFileService {
      */
     @Override
     public int updateMdYdiskFile(MdYdiskFile mdYdiskFile) {
-        mdYdiskFile.setDeptId(mdYdiskFileMapper.getDeptIdByUserId(mdYdiskFile.getUserId()));
+        mdYdiskFile.setDeptId(mdYdiskFileMapper.getDeptIdByUserId(Long.valueOf(mdYdiskFile.getUserId())));
         return mdYdiskFileMapper.updateMdYdiskFile(mdYdiskFile);
     }
 

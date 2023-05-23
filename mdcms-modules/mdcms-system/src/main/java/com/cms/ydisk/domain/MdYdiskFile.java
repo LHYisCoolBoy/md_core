@@ -45,13 +45,13 @@ public class MdYdiskFile extends BaseEntity {
      * 部门id
      */
     @Excel(name = "部门id")
-    private Long deptId;
+    private String deptId;
 
     /**
      * 用户id
      */
     @Excel(name = "用户id")
-    private Long userId;
+    private String userId;
 
     public void setId(Long id) {
         this.id = id;
@@ -85,19 +85,19 @@ public class MdYdiskFile extends BaseEntity {
         return time;
     }
 
-    public void setDeptId(Long deptId) {
+    public void setDeptId(String deptId) {
         this.deptId = deptId;
     }
 
-    public Long getDeptId() {
+    public String getDeptId() {
         return deptId;
     }
 
-    public void setUserId(Long userId) {
+    public void setUserId(String userId) {
         this.userId = userId;
     }
 
-    public Long getUserId() {
+    public String getUserId() {
         return userId;
     }
 

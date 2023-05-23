@@ -59,5 +59,5 @@ public interface MdYdiskFileMapper
      */
     public int deleteMdYdiskFileByIds(Long[] ids);
 
-    Long getDeptIdByUserId(Long userId);
+    String getDeptIdByUserId(Long userId);
 }
