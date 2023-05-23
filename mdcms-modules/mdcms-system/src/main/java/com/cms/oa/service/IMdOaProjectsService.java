@@ -83,4 +83,11 @@ public interface IMdOaProjectsService {
      * @return
      */
     int selectByCollaboratorId(Long userId);
+
+    /**
+     * 根据部门 ID 获取用户信息
+     * @param mdOaProjects
+     * @return
+     */
+    List<MdOaProjectsVO> selectAllByDeptId(MdOaProjects mdOaProjects);
 }

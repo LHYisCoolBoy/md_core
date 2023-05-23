@@ -221,4 +221,34 @@
         from md_oa_projects
         where collaborator_id = #{userId};
     </select>
+    <select id="selectAllByDeptId" resultMap="MdOaProjectsVOResult">
+        select mdop.id,
+        mdop.user_id,
+        u.nick_name,
+        mdop.dept_id,
+        d.dept_name,
+        mdop.name,
+        mdop.collaborator_id,
+        u1.nick_name as collaborator_name,
+        mdop.collaborator_dept_id,
+        d1.dept_name as collaborator_dept_name,
+        mdop.urgency,
+        mdop.description,
+        mdop.start_time,
+        mdop.end_time,
+        mdop.expense_source,
+        mdop.expense_amount,
+        mdop.is_payment,
+        mdop.create_time,
+        mdop.update_time
+        from md_oa_projects as mdop
+        inner join sys_user as u on mdop.user_id = u.user_id
+        inner join sys_dept as d on mdop.dept_id = d.dept_id
+        inner join sys_user as u1 on mdop.collaborator_id = u1.user_id
+        inner join sys_dept as d1 on mdop.collaborator_dept_id = d1.dept_id
+        <where>
+            and mdop.is_delete = 0
+            <if test="deptId != null">and mdop.dept_id = #{deptId}</if>
+        </where>
+    </select>
 </mapper>

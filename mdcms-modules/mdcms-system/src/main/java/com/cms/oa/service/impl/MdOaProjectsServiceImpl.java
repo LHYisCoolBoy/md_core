@@ -75,21 +75,20 @@ public class MdOaProjectsServiceImpl implements IMdOaProjectsService {
             throw new BaseException("添加失败");
         }
         // 获取开始时间、结束时间、费用金额
-        String urgency = mdOaProjects.getUrgency();
-        Date startTime = mdOaProjects.getStartTime();
-        Date endTime = mdOaProjects.getEndTime();
-        String expenseAmount = mdOaProjects.getExpenseAmount();
-        long expenseAmountLong = Long.parseLong(expenseAmount);
+//        Date startTime = mdOaProjects.getStartTime();
+//        Date endTime = mdOaProjects.getEndTime();
+//        String expenseAmount = mdOaProjects.getExpenseAmount();
+//        long expenseAmountLong = Long.parseLong(expenseAmount);
         // 获取开始时间和结束时间相差多少天
-        Long phaseDifferenceDays = this.getPhaseDifferenceDays(startTime, endTime);
-        if (phaseDifferenceDays < 40 || expenseAmountLong > 900) {
-            mdOaProjects.setUrgency("※※※※※");
-            int result = this.updateMdOaProjects(mdOaProjects);
-            if (result <= 0) {
-                log.info("MdOaProjectsServiceImpl:insertMdOaProjects:result is {}", result);
-                throw new BaseException("添加紧急程度失败");
-            }
-        }
+//        Long phaseDifferenceDays = this.getPhaseDifferenceDays(startTime, endTime);
+//        if (phaseDifferenceDays < 40 || expenseAmountLong > 900) {
+//            mdOaProjects.setUrgency("※※※※※");
+//            int result = this.updateMdOaProjects(mdOaProjects);
+//            if (result <= 0) {
+//                log.info("MdOaProjectsServiceImpl:insertMdOaProjects:result is {}", result);
+//                throw new BaseException("添加紧急程度失败");
+//            }
+//        }
         return result1;
     }
 
@@ -186,6 +185,26 @@ public class MdOaProjectsServiceImpl implements IMdOaProjectsService {
             throw new BaseException("参数不能为空");
         }
         return mdOaProjectsMapper.selectByCollaboratorId(userId);
+    }
+
+    /**
+     * 根据部门 ID 获取用户信息
+     *
+     * @param mdOaProjects
+     * @return
+     */
+    @Override
+    public List<MdOaProjectsVO> selectAllByDeptId(MdOaProjects mdOaProjects) {
+        if (mdOaProjects == null) {
+            log.info("MdOaProjectsServiceImpl:mdOaProjects is {}", mdOaProjects);
+            throw new BaseException("参数不能为空");
+        }
+        List<MdOaProjectsVO> mdOaProjectsVOS = mdOaProjectsMapper.selectAllByDeptId(mdOaProjects);
+        if (mdOaProjectsVOS == null || mdOaProjectsVOS.isEmpty()) {
+            log.info("updateIsCompleteById:id is {}", mdOaProjectsVOS);
+            throw new BaseException("参数不能为空");
+        }
+        return mdOaProjectsVOS;
     }
 
     private Long getPhaseDifferenceDays(Date startTime, Date endTime) {
