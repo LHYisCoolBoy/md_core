@@ -76,7 +76,7 @@ public class MdYdiskFileController extends BaseController {
     @Log(title = "捷电网盘", businessType = BusinessType.INSERT)
     @PostMapping
     public AjaxResult add(@RequestBody MdYdiskFile mdYdiskFile) {
-        mdYdiskFile.setUserId(SecurityUtils.getUserId());
+        mdYdiskFile.setUserId(String.valueOf(SecurityUtils.getUserId()));
         return toAjax(mdYdiskFileService.insertMdYdiskFile(mdYdiskFile));
     }
 
@@ -87,7 +87,7 @@ public class MdYdiskFileController extends BaseController {
     @Log(title = "捷电网盘", businessType = BusinessType.UPDATE)
     @PutMapping
     public AjaxResult edit(@RequestBody MdYdiskFile mdYdiskFile) {
-        mdYdiskFile.setUserId(SecurityUtils.getUserId());
+        mdYdiskFile.setUserId(String.valueOf(SecurityUtils.getUserId()));
         return toAjax(mdYdiskFileService.updateMdYdiskFile(mdYdiskFile));
     }
 
