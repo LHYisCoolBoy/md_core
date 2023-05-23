@@ -19,13 +19,15 @@
     </sql>
 
     <select id="selectMdYdiskFileList" parameterType="com.cms.ydisk.domain.MdYdiskFile" resultMap="MdYdiskFileResult">
-        <include refid="selectMdYdiskFileVo"/>
+        SELECT f.id, f.name, f.url, f.time, u.nick_name AS user_id, d.dept_name AS dept_id
+        FROM md_ydisk_file f
+        left join sys_dept d on d.dept_id = f.dept_id
+        LEFT JOIN sys_user u on u.user_id = f.user_id
         <where>
-            <if test="name != null  and name != ''">and name like concat('%', #{name}, '%')</if>
-            <if test="url != null  and url != ''">and url = #{url}</if>
-            <if test="time != null ">and time = #{time}</if>
-            <if test="deptId != null ">and dept_id = #{deptId}</if>
-            <if test="userId != null ">and user_id = #{userId}</if>
+            <if test="name != null  and name != ''">and f.name like concat('%', #{name}, '%')</if>
+            <if test="time != null ">and f.time = #{time}</if>
+            <if test="deptId != null ">and f.dept_id = #{deptId}</if>
+            <if test="userId != null ">and f.user_id = #{userId}</if>
         </where>
     </select>
 
@@ -62,7 +64,7 @@
             <if test="deptId != null">dept_id = #{deptId},</if>
             <if test="userId != null">user_id = #{userId},</if>
         </trim>
-        where id = #{id} and 1=1
+        where id = #{id}
     </update>
 
     <delete id="deleteMdYdiskFileById" parameterType="Long">
@@ -78,7 +80,7 @@
         </foreach>
     </delete>
 
-    <select id="getDeptIdByUserId" resultType="Long">
+    <select id="getDeptIdByUserId" resultType="String">
         SELECT dept_id
         FROM sys_user
         WHERE user_id = #{userId}
