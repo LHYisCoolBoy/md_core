@@ -194,15 +194,14 @@
         <where>
             and mdop.is_delete = 0
             <if test="id != null">and mdop.id = #{id}</if>
-            <if test="isComplete != null">and mdop.is_payment = #{isPayment}</if>
+            <if test="isPayment != null">and mdop.is_payment = #{isPayment}</if>
             <if test="userId != null">
                 and (mdop.user_id = #{userId} or mdop.collaborator_id = #{userId})
             </if>
-            <if test="userId != null">
+            <if test="deptId != null">
                 and (mdop.dept_id = #{deptId} or mdop.collaborator_dept_id = #{deptId})
             </if>
-            <if test="name != null  and name != ''">and mdop.name like concat('%', #{name}, '%')</if>
-            <if test="isPayment != null ">and is_payment = #{isPayment}</if>
+            <if test="name != null and name != ''">and mdop.name like concat('%', #{name}, '%')</if>
         </where>
     </select>
 
@@ -222,33 +221,20 @@
         where collaborator_id = #{userId};
     </select>
     <select id="selectAllByDeptId" resultMap="MdOaProjectsVOResult">
-        select mdop.id,
-        mdop.user_id,
+        select u.user_id,
         u.nick_name,
-        mdop.dept_id,
+        d.dept_id,
         d.dept_name,
-        mdop.name,
-        mdop.collaborator_id,
+        u1.user_id as collaborator_id,
         u1.nick_name as collaborator_name,
-        mdop.collaborator_dept_id,
-        d1.dept_name as collaborator_dept_name,
-        mdop.urgency,
-        mdop.description,
-        mdop.start_time,
-        mdop.end_time,
-        mdop.expense_source,
-        mdop.expense_amount,
-        mdop.is_payment,
-        mdop.create_time,
-        mdop.update_time
-        from md_oa_projects as mdop
-        inner join sys_user as u on mdop.user_id = u.user_id
-        inner join sys_dept as d on mdop.dept_id = d.dept_id
-        inner join sys_user as u1 on mdop.collaborator_id = u1.user_id
-        inner join sys_dept as d1 on mdop.collaborator_dept_id = d1.dept_id
+        d1.dept_id as collaborator_dept_id,
+        d1.dept_name as collaborator_dept_name
+        from sys_user as u
+        inner join sys_dept as d on u.dept_id = d.dept_id
+        inner join sys_user as u1 on u.user_id = u1.user_id
+        inner join sys_dept as d1 on u.dept_id = d1.dept_id
         <where>
-            and mdop.is_delete = 0
-            <if test="deptId != null">and mdop.dept_id = #{deptId}</if>
+            <if test="deptId != null">and u.dept_id = #{deptId}</if>
         </where>
     </select>
 </mapper>
