@@ -41,3 +41,9 @@
 /mdcms-visual/mdcms-visual.iml
 /mdcms-cloud.iml
 /logs/
+/mdcms-modules/mdcms-advertisement/mdcms-modules-gzh.iml
+
+*/.DS_Store
+/mdcms-common/.DS_Store
+/mdcms-modules/.DS_Store
+/mdcms-modules/mdcms-system/.DS_Store
