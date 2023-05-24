@@ -67,6 +67,7 @@ public class MdYdiskFileServiceImpl implements IMdYdiskFileService {
      */
     @Override
     public int insertMdYdiskFile(MdYdiskFile mdYdiskFile) {
+
         mdYdiskFile.setDeptId(mdYdiskFileMapper.getDeptIdByUserId(Long.valueOf(mdYdiskFile.getUserId())));
         return mdYdiskFileMapper.insertMdYdiskFile(mdYdiskFile);
     }
