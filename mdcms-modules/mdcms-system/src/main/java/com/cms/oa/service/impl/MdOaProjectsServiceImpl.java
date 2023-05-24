@@ -14,6 +14,7 @@ import com.cms.oa.domain.MdOaCompleted;
 import com.cms.oa.domain.vo.MdOaProjectsVO;
 import com.cms.oa.mapper.MdOaCompletedMapper;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.time.DateFormatUtils;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -201,8 +202,8 @@ public class MdOaProjectsServiceImpl implements IMdOaProjectsService {
         }
         List<MdOaProjectsVO> mdOaProjectsVOS = mdOaProjectsMapper.selectAllByDeptId(mdOaProjects);
         if (mdOaProjectsVOS == null || mdOaProjectsVOS.isEmpty()) {
-            log.info("updateIsCompleteById:id is {}", mdOaProjectsVOS);
-            throw new BaseException("参数不能为空");
+            log.info("updateIsCompleteById:mdOaProjectsVOS is {}", mdOaProjectsVOS);
+            throw new BaseException("查询数据为空");
         }
         return mdOaProjectsVOS;
     }
