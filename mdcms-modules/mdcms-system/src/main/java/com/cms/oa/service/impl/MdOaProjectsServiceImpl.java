@@ -1,10 +1,9 @@
 package com.cms.oa.service.impl;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -14,8 +13,6 @@ import com.cms.oa.domain.MdOaCompleted;
 import com.cms.oa.domain.vo.MdOaProjectsVO;
 import com.cms.oa.mapper.MdOaCompletedMapper;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.lang3.time.DateFormatUtils;
-import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.cms.oa.mapper.MdOaProjectsMapper;
@@ -180,12 +177,12 @@ public class MdOaProjectsServiceImpl implements IMdOaProjectsService {
      * @return
      */
     @Override
-    public int selectByCollaboratorId(Long userId) {
+    public int selectByCollaboratorIdCount(Long userId) {
         if (userId == null) {
             log.info("updateIsCompleteById:id is {}", userId);
             throw new BaseException("参数不能为空");
         }
-        return mdOaProjectsMapper.selectByCollaboratorId(userId);
+        return mdOaProjectsMapper.selectByCollaboratorIdCount(userId);
     }
 
     /**
@@ -203,6 +200,26 @@ public class MdOaProjectsServiceImpl implements IMdOaProjectsService {
         List<MdOaProjectsVO> mdOaProjectsVOS = mdOaProjectsMapper.selectAllByDeptId(mdOaProjects);
         if (mdOaProjectsVOS == null || mdOaProjectsVOS.isEmpty()) {
             log.info("updateIsCompleteById:mdOaProjectsVOS is {}", mdOaProjectsVOS);
+            throw new BaseException("查询数据为空");
+        }
+        return mdOaProjectsVOS;
+    }
+
+    /**
+     * 根据用户 ID 和是否已支付来查询所有项目信息
+     *
+     * @param mdOaProjects
+     * @return
+     */
+    @Override
+    public List<MdOaProjectsVO> selectAllByCollaboratorId(MdOaProjects mdOaProjects) {
+        if (mdOaProjects == null) {
+            log.info("MdOaProjectsServiceImpl:selectAllByCollaboratorId:mdOaProjects is {}", mdOaProjects);
+            throw new BaseException("参数不能为空");
+        }
+        List<MdOaProjectsVO> mdOaProjectsVOS = mdOaProjectsMapper.selectAllByCollaboratorId(mdOaProjects);
+        if (mdOaProjectsVOS == null || mdOaProjectsVOS.isEmpty()) {
+            log.info("MdOaProjectsServiceImpl:selectAllByCollaboratorId:mdOaProjectsVOS is {}", mdOaProjectsVOS);
             throw new BaseException("查询数据为空");
         }
         return mdOaProjectsVOS;

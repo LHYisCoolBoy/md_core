@@ -4,7 +4,6 @@ import java.util.List;
 
 import com.cms.oa.domain.MdOaProjects;
 import com.cms.oa.domain.vo.MdOaProjectsVO;
-import org.apache.ibatis.annotations.Param;
 
 /**
  * 项目Service接口
@@ -82,12 +81,21 @@ public interface IMdOaProjectsService {
      * @param userId
      * @return
      */
-    int selectByCollaboratorId(Long userId);
+    int selectByCollaboratorIdCount(Long userId);
 
     /**
      * 根据部门 ID 获取用户信息
+     *
      * @param mdOaProjects
      * @return
      */
     List<MdOaProjectsVO> selectAllByDeptId(MdOaProjects mdOaProjects);
+
+    /**
+     * 根据用户 ID 和是否已支付来查询所有项目信息
+     *
+     * @param mdOaProjects
+     * @return
+     */
+    List<MdOaProjectsVO> selectAllByCollaboratorId(MdOaProjects mdOaProjects);
 }
