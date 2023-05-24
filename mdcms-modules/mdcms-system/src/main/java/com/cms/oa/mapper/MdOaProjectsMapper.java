@@ -92,5 +92,12 @@ public interface MdOaProjectsMapper {
      * @param userId
      * @return
      */
-    int selectByCollaboratorId(@Param("userId") Long userId);
+    int selectByCollaboratorIdCount(@Param("userId") Long userId);
+
+    /**
+     * 根据用户 ID 和是否已支付来查询所有项目信息
+     * @param mdOaProjects
+     * @return
+     */
+    List<MdOaProjectsVO> selectAllByCollaboratorId(MdOaProjects mdOaProjects);
 }

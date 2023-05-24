@@ -39,6 +39,19 @@ public class MdOaTaskController extends BaseController {
     }
 
     /**
+     * 根据用户 ID 和是否已支付查询所有信息
+     *
+     * @param mdOaProjects
+     * @return
+     */
+    @GetMapping("/selectAllByCollaboratorId")
+    public TableDataInfo selectAllByCollaboratorId(MdOaProjects mdOaProjects) {
+        startPage();
+        List<MdOaProjectsVO> list = mdOaProjectsService.selectAllByCollaboratorId(mdOaProjects);
+        return getDataTable(list);
+    }
+
+    /**
      * 根据项目 ID 更新该项目的是否已完成字段为已完成
      *
      * @param mdOaProjects

@@ -8,7 +8,6 @@ import com.cms.common.log.annotation.Log;
 import com.cms.common.log.enums.BusinessType;
 import com.cms.common.security.annotation.PreAuthorize;
 import com.cms.oa.domain.MdOaProjects;
-import com.cms.oa.domain.vo.MdOaProjectsVO;
 import com.cms.oa.service.IMdOaProjectsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -97,9 +96,9 @@ public class MdOaProjectsController extends BaseController {
      * @param userId
      * @return
      */
-    @GetMapping("/selectByCollaboratorId")
-    public AjaxResult selectByCollaboratorId(@RequestParam("userId") Long userId) {
-        return AjaxResult.success(mdOaProjectsService.selectByCollaboratorId(userId));
+    @GetMapping("/selectByCollaboratorIdCount")
+    public AjaxResult selectByCollaboratorIdCount(@RequestParam("userId") Long userId) {
+        return AjaxResult.success(mdOaProjectsService.selectByCollaboratorIdCount(userId));
     }
 
     /**
