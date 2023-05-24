@@ -5,6 +5,7 @@ import java.util.Date;
 import com.cms.common.core.web.domain.BaseEntity;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.cms.common.core.annotation.Excel;
+import lombok.Data;
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.commons.lang.builder.ToStringStyle;
 
@@ -14,6 +15,7 @@ import org.apache.commons.lang.builder.ToStringStyle;
  * @author LK
  * @date 2023-05-19
  */
+@Data
 public class MdYdiskFile extends BaseEntity {
     private static final long serialVersionUID = 1L;
 
@@ -33,6 +35,7 @@ public class MdYdiskFile extends BaseEntity {
      */
     @Excel(name = "文件地址")
     private String url;
+    private int urlNo;
 
     /**
      * 上传时间

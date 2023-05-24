@@ -34,10 +34,10 @@ public class MdYdiskFileServiceImpl implements IMdYdiskFileService {
     @Override
     public MdYdiskFile selectMdYdiskFileById(Long id) {
         MdYdiskFile mdYdiskFile = mdYdiskFileMapper.selectMdYdiskFileById(id);
-        try{
+        try {
             mdYdiskFile.setDeptId(deptMapper.selectDeptById(Long.valueOf(mdYdiskFile.getDeptId())).getDeptName());
             mdYdiskFile.setUserId(userMapper.selectUserById(Long.valueOf(mdYdiskFile.getUserId())).getNickName());
-        }catch (Exception e){
+        } catch (Exception e) {
             mdYdiskFile.setDeptId("未分配部门");
             mdYdiskFile.setUserId("未知上传者");
         }
@@ -52,7 +52,11 @@ public class MdYdiskFileServiceImpl implements IMdYdiskFileService {
      */
     @Override
     public List<MdYdiskFile> selectMdYdiskFileList(MdYdiskFile mdYdiskFile) {
-        return mdYdiskFileMapper.selectMdYdiskFileList(mdYdiskFile);
+        List<MdYdiskFile> mdYdiskFiles = mdYdiskFileMapper.selectMdYdiskFileList(mdYdiskFile);
+        for (MdYdiskFile dbfile : mdYdiskFiles) {
+            dbfile.setUrlNo(dbfile.getUrl().split(",").length);
+        }
+        return mdYdiskFiles;
     }
 
     /**
