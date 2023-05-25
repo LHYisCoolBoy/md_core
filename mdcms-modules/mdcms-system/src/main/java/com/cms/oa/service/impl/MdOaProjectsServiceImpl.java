@@ -138,7 +138,7 @@ public class MdOaProjectsServiceImpl implements IMdOaProjectsService {
         List<MdOaProjectsVO> mdOaProjectsVOList = mdOaProjectsMapper.selectAllByUserIdAndIsComplete(mdOaProjects);
         if (mdOaProjectsVOList == null || mdOaProjectsVOList.isEmpty()) {
             log.info("selectAllByUserIdAndIsComplete:mdOaProjectsVOList is {}", mdOaProjectsVOList);
-            throw new BaseException("无数据");
+            return new ArrayList<>();
         }
         return mdOaProjectsVOList;
     }
@@ -200,7 +200,7 @@ public class MdOaProjectsServiceImpl implements IMdOaProjectsService {
         List<MdOaProjectsVO> mdOaProjectsVOS = mdOaProjectsMapper.selectAllByDeptId(mdOaProjects);
         if (mdOaProjectsVOS == null || mdOaProjectsVOS.isEmpty()) {
             log.info("updateIsCompleteById:mdOaProjectsVOS is {}", mdOaProjectsVOS);
-            throw new BaseException("查询数据为空");
+            return new ArrayList<>();
         }
         return mdOaProjectsVOS;
     }
@@ -220,7 +220,7 @@ public class MdOaProjectsServiceImpl implements IMdOaProjectsService {
         List<MdOaProjectsVO> mdOaProjectsVOS = mdOaProjectsMapper.selectAllByCollaboratorId(mdOaProjects);
         if (mdOaProjectsVOS == null || mdOaProjectsVOS.isEmpty()) {
             log.info("MdOaProjectsServiceImpl:selectAllByCollaboratorId:mdOaProjectsVOS is {}", mdOaProjectsVOS);
-            throw new BaseException("查询数据为空");
+            return new ArrayList<>();
         }
         return mdOaProjectsVOS;
     }
