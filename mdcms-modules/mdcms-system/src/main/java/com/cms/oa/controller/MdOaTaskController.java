@@ -45,7 +45,6 @@ public class MdOaTaskController extends BaseController {
      * @return
      */
     @GetMapping("/selectAllByCollaboratorId")
-
     public TableDataInfo selectAllByCollaboratorId(MdOaProjects mdOaProjects) {
         startPage();
         List<MdOaProjectsVO> list = mdOaProjectsService.selectAllByCollaboratorId(mdOaProjects);

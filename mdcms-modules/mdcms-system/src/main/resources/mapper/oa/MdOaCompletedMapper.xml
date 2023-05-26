@@ -66,7 +66,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <trim prefix="SET" suffixOverrides=",">
             <if test="userId != null">user_id = #{userId},</if>
             <if test="deptId != null">dept_id = #{deptId},</if>
-            <if test="projectId != null">project_id = #{projectId},</if>
             <if test="imgUrl != null">img_url = #{imgUrl},</if>
             <if test="videoUrl != null">video_url = #{videoUrl},</if>
             <if test="fileUrl != null">file_url = #{fileUrl},</if>
@@ -74,7 +73,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="updateTime != null">update_time = #{updateTime},</if>
             <if test="isDelete != null">is_delete = #{isDelete},</if>
         </trim>
-        where id = #{id}
+        where project_id = #{projectId}
     </update>
 
     <delete id="deleteMdOaCompletedById" parameterType="Long">
