@@ -99,7 +99,16 @@ public class MdOaProjectsServiceImpl implements IMdOaProjectsService {
     @Override
     public int updateMdOaProjects(MdOaProjects mdOaProjects) {
         mdOaProjects.setUpdateTime(DateUtils.getNowDate());
-        return mdOaProjectsMapper.updateMdOaProjects(mdOaProjects);
+        int result = mdOaProjectsMapper.updateMdOaProjects(mdOaProjects);
+        if (result <= 0) {
+            log.info("MdOaProjectsServiceImpl:updateMdOaProjects:result is {}", result);
+            return -1;
+        }
+        MdOaCompleted mdOaCompleted = new MdOaCompleted();
+        mdOaCompleted.setId(mdOaProjects.getId());
+        mdOaCompleted.setUserId(mdOaProjects.getUserId());
+        mdOaCompleted.setDeptId(mdOaProjects.getDeptId());
+        return mdOaCompletedMapper.updateMdOaCompleted(mdOaCompleted);
     }
 
     /**
