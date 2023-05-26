@@ -73,7 +73,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="updateTime != null">update_time = #{updateTime},</if>
             <if test="isDelete != null">is_delete = #{isDelete},</if>
         </trim>
-        where project_id = #{projectId}
+        where project_id = #{id}
     </update>
 
     <delete id="deleteMdOaCompletedById" parameterType="Long">
