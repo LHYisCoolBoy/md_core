@@ -42,6 +42,7 @@
         <result property="expenseSource" column="expense_source"/>
         <result property="expenseAmount" column="expense_amount"/>
         <result property="isPayment" column="is_payment"/>
+        <result property="isComplete" column="is_complete"/>
         <result property="imgUrl" column="img_url"/>
         <result property="videoUrl" column="video_url"/>
         <result property="fileUrl" column="file_url"/>
@@ -162,7 +163,7 @@
         </foreach>
     </delete>
 
-    <select id="selectAllByUserIdAndIsComplete" parameterType="long" resultMap="MdOaProjectsVOResult">
+    <select id="selectAllByUserIdAndIsComplete"  resultMap="MdOaProjectsVOResult">
         select mdop.id,
         mdop.user_id,
         u.nick_name,
@@ -180,6 +181,7 @@
         mdop.expense_source,
         mdop.expense_amount,
         mdop.is_payment,
+        mdop.is_complete,
         mdoc.img_url,
         mdoc.video_url,
         mdoc.file_url,
@@ -194,7 +196,9 @@
         <where>
             and mdop.is_delete = 0
             <if test="id != null">and mdop.id = #{id}</if>
-            <if test="isPayment != null">and mdop.is_payment = #{isPayment}</if>
+            <if test="isComplete != null">
+                and (mdop.is_complete = #{isComplete} or mdop.is_complete = #{isComplete01})
+            </if>
             <if test="userId != null">
                 and (mdop.user_id = #{userId} or mdop.collaborator_id = #{userId})
             </if>

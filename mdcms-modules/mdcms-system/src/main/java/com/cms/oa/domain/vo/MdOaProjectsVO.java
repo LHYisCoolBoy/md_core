@@ -80,13 +80,13 @@ public class MdOaProjectsVO extends BaseEntity {
     /**
      * 项目的开始时间
      */
-    @JsonFormat(pattern = "yyyy-MM-dd")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date startTime;
 
     /**
      * 项目预计的结束时间
      */
-    @JsonFormat(pattern = "yyyy-MM-dd")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date endTime;
 
     /**
@@ -118,6 +118,11 @@ public class MdOaProjectsVO extends BaseEntity {
      * 是否已支付（0 - 未支付，1 - 已支付）
      */
     private Long isPayment;
+
+    /**
+     * 是否已完成（0 - 未开始，1 - 已开始，2 - 已完成）
+     */
+    private Long isComplete;
 
     public void setId(Long id) {
         this.id = id;
@@ -279,6 +284,14 @@ public class MdOaProjectsVO extends BaseEntity {
         this.fileUrl = fileUrl;
     }
 
+    public Long getIsComplete() {
+        return isComplete;
+    }
+
+    public void setIsComplete(Long isComplete) {
+        this.isComplete = isComplete;
+    }
+
     @Override
     public String toString() {
         return new ToStringBuilder(this, ToStringStyle.MULTI_LINE_STYLE)
@@ -302,6 +315,7 @@ public class MdOaProjectsVO extends BaseEntity {
                 .append("expenseSource", getExpenseSource())
                 .append("expenseAmount", getExpenseAmount())
                 .append("isPayment", getIsPayment())
+                .append("isComplete",getIsComplete())
                 .append("createTime", getCreateTime())
                 .append("updateTime", getUpdateTime())
                 .toString();
