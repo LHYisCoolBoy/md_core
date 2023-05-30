@@ -22,6 +22,20 @@
         <result property="createTime" column="create_time"/>
         <result property="updateTime" column="update_time"/>
         <result property="isDelete" column="is_delete"/>
+        <result property="customerDepartmentName" column="customer_department_name"/>
+        <result property="customerContactPerson" column="customer_contact_person"/>
+        <result property="customerContactPhone" column="customer_contact_phone"/>
+        <result property="supplierName" column="supplier_name"/>
+        <result property="supplierContactPerson" column="supplier_contact_person"/>
+        <result property="materialName" column="material_name"/>
+        <result property="materialQuantity" column="material_quantity"/>
+        <result property="supplierContactPhone" column="supplier_contact_phone"/>
+        <result property="materialPrice" column="material_price"/>
+        <result property="contract" column="contract"/>
+        <result property="projectCategory" column="project_category"/>
+        <result property="difficultyForecast" column="difficulty_forecast"/>
+        <result property="managerCooperationRequired" column="manager_cooperation_required"/>
+        <result property="firstContact" column="first_contact"/>
     </resultMap>
 
     <resultMap type="com.cms.oa.domain.vo.MdOaProjectsVO" id="MdOaProjectsVOResult">
@@ -48,6 +62,20 @@
         <result property="fileUrl" column="file_url"/>
         <result property="createTime" column="create_time"/>
         <result property="updateTime" column="update_time"/>
+        <result property="customerDepartmentName" column="customer_department_name"/>
+        <result property="customerContactPerson" column="customer_contact_person"/>
+        <result property="customerContactPhone" column="customer_contact_phone"/>
+        <result property="supplierName" column="supplier_name"/>
+        <result property="supplierContactPerson" column="supplier_contact_person"/>
+        <result property="materialName" column="material_name"/>
+        <result property="materialQuantity" column="material_quantity"/>
+        <result property="supplierContactPhone" column="supplier_contact_phone"/>
+        <result property="materialPrice" column="material_price"/>
+        <result property="contract" column="contract"/>
+        <result property="projectCategory" column="project_category"/>
+        <result property="difficultyForecast" column="difficulty_forecast"/>
+        <result property="managerCooperationRequired" column="manager_cooperation_required"/>
+        <result property="firstContact" column="first_contact"/>
     </resultMap>
 
     <sql id="selectMdOaProjectsVo">
@@ -65,6 +93,20 @@
                expense_amount,
                is_payment,
                is_complete,
+               customer_department_name,
+               customer_contact_person,
+               customer_contact_phone,
+               supplier_name,
+               supplier_contact_person,
+               material_name,
+               material_quantity,
+               supplier_contact_phone,
+               material_price,
+               contract,
+               project_category,
+               difficulty_forecast,
+               manager_cooperation_required,
+               first_contact,
                create_time,
                update_time,
                is_delete
@@ -163,7 +205,7 @@
         </foreach>
     </delete>
 
-    <select id="selectAllByUserIdAndIsComplete"  resultMap="MdOaProjectsVOResult">
+    <select id="selectAllByUserIdAndIsComplete" resultMap="MdOaProjectsVOResult">
         select mdop.id,
         mdop.user_id,
         u.nick_name,
@@ -186,7 +228,21 @@
         mdoc.video_url,
         mdoc.file_url,
         mdop.create_time,
-        mdop.update_time
+        mdop.update_time,
+        mdop.customer_department_name,
+        mdop.customer_contact_person,
+        mdop.customer_contact_phone,
+        mdop.supplier_name,
+        mdop.supplier_contact_person,
+        mdop.material_name,
+        mdop.material_quantity,
+        mdop.supplier_contact_phone,
+        mdop.material_price,
+        mdop.contract,
+        mdop.project_category,
+        mdop.difficulty_forecast,
+        mdop.manager_cooperation_required,
+        mdop.first_contact
         from md_oa_projects as mdop
         inner join sys_user as u on mdop.user_id = u.user_id
         inner join sys_dept as d on mdop.dept_id = d.dept_id
@@ -197,7 +253,7 @@
             and mdop.is_delete = 0
             <if test="id != null">and mdop.id = #{id}</if>
             <if test="isComplete != null">
-                and (mdop.is_complete = #{isComplete} or mdop.is_complete = #{isComplete01})
+                and mdop.is_complete in (#{isComplete},#{isComplete01})
             </if>
             <if test="userId != null">
                 and (mdop.user_id = #{userId} or mdop.collaborator_id = #{userId})

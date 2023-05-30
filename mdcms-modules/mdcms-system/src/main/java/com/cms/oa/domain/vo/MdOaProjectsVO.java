@@ -100,6 +100,76 @@ public class MdOaProjectsVO extends BaseEntity {
     private String expenseAmount;
 
     /**
+     * 客户部门名称
+     */
+    private String customerDepartmentName;
+
+    /**
+     * 客户 - 联系人
+     */
+    private String customerContactPerson;
+
+    /**
+     * 客户 - 联系电话
+     */
+    private String customerContactPhone;
+
+    /**
+     * 供应商名称
+     */
+    private String supplierName;
+
+    /**
+     * 供应商联系人
+     */
+    private String supplierContactPerson;
+
+    /**
+     * 供应商联系人电话
+     */
+    private String supplierContactPhone;
+
+    /**
+     * 供应物资名称
+     */
+    private String materialName;
+
+    /**
+     * 供应物资数量
+     */
+    private String materialQuantity;
+
+    /**
+     * 供应物资价格
+     */
+    private String materialPrice;
+
+    /**
+     * 供应商合同
+     */
+    private String contract;
+
+    /**
+     * 项目分类
+     */
+    private Integer projectCategory;
+
+    /**
+     * 项目难点预测
+     */
+    private String difficultyForecast;
+
+    /**
+     * 需要总经理协调推进的问题
+     */
+    private String managerCooperationRequired;
+
+    /**
+     * 是否第一次接触
+     */
+    private Integer firstContact;
+
+    /**
      * 图片地址
      */
     private String imgUrl;
@@ -292,6 +362,118 @@ public class MdOaProjectsVO extends BaseEntity {
         this.isComplete = isComplete;
     }
 
+    public String getCustomerDepartmentName() {
+        return customerDepartmentName;
+    }
+
+    public void setCustomerDepartmentName(String customerDepartmentName) {
+        this.customerDepartmentName = customerDepartmentName;
+    }
+
+    public String getCustomerContactPerson() {
+        return customerContactPerson;
+    }
+
+    public void setCustomerContactPerson(String customerContactPerson) {
+        this.customerContactPerson = customerContactPerson;
+    }
+
+    public String getCustomerContactPhone() {
+        return customerContactPhone;
+    }
+
+    public void setCustomerContactPhone(String customerContactPhone) {
+        this.customerContactPhone = customerContactPhone;
+    }
+
+    public String getSupplierName() {
+        return supplierName;
+    }
+
+    public void setSupplierName(String supplierName) {
+        this.supplierName = supplierName;
+    }
+
+    public String getSupplierContactPerson() {
+        return supplierContactPerson;
+    }
+
+    public void setSupplierContactPerson(String supplierContactPerson) {
+        this.supplierContactPerson = supplierContactPerson;
+    }
+
+    public String getSupplierContactPhone() {
+        return supplierContactPhone;
+    }
+
+    public void setSupplierContactPhone(String supplierContactPhone) {
+        this.supplierContactPhone = supplierContactPhone;
+    }
+
+    public String getMaterialName() {
+        return materialName;
+    }
+
+    public void setMaterialName(String materialName) {
+        this.materialName = materialName;
+    }
+
+    public String getMaterialQuantity() {
+        return materialQuantity;
+    }
+
+    public void setMaterialQuantity(String materialQuantity) {
+        this.materialQuantity = materialQuantity;
+    }
+
+    public String getMaterialPrice() {
+        return materialPrice;
+    }
+
+    public void setMaterialPrice(String materialPrice) {
+        this.materialPrice = materialPrice;
+    }
+
+    public String getContract() {
+        return contract;
+    }
+
+    public void setContract(String contract) {
+        this.contract = contract;
+    }
+
+    public Integer getProjectCategory() {
+        return projectCategory;
+    }
+
+    public void setProjectCategory(Integer projectCategory) {
+        this.projectCategory = projectCategory;
+    }
+
+    public String getDifficultyForecast() {
+        return difficultyForecast;
+    }
+
+    public void setDifficultyForecast(String difficultyForecast) {
+        this.difficultyForecast = difficultyForecast;
+    }
+
+    public String getManagerCooperationRequired() {
+        return managerCooperationRequired;
+    }
+
+    public void setManagerCooperationRequired(String managerCooperationRequired) {
+        this.managerCooperationRequired = managerCooperationRequired;
+    }
+
+    public Integer getFirstContact() {
+        return firstContact;
+    }
+
+    public void setFirstContact(Integer firstContact) {
+        this.firstContact = firstContact;
+    }
+
     @Override
     public String toString() {
         return new ToStringBuilder(this, ToStringStyle.MULTI_LINE_STYLE)
@@ -315,7 +497,21 @@ public class MdOaProjectsVO extends BaseEntity {
                 .append("expenseSource", getExpenseSource())
                 .append("expenseAmount", getExpenseAmount())
                 .append("isPayment", getIsPayment())
-                .append("isComplete",getIsComplete())
+                .append("isComplete", getIsComplete())
+                .append("customerDepartmentName", getCustomerDepartmentName())
+                .append("customerContactPerson", getCustomerContactPerson())
+                .append("customerContactPhone", getCustomerContactPhone())
+                .append("supplierName", getSupplierName())
+                .append("supplierContactPerson", getSupplierContactPerson())
+                .append("materialName", getMaterialName())
+                .append("materialQuantity", getMaterialQuantity())
+                .append("supplierContactPhone", getSupplierContactPhone())
+                .append("materialPrice", getMaterialPrice())
+                .append("contract", getContract())
+                .append("projectCategory", getProjectCategory())
+                .append("difficultyForecast", getDifficultyForecast())
+                .append("managerCooperationRequired", getManagerCooperationRequired())
+                .append("firstContact", getFirstContact())
                 .append("createTime", getCreateTime())
                 .append("updateTime", getUpdateTime())
                 .toString();
