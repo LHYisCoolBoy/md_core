@@ -151,7 +151,7 @@ public class MdOaProjects extends BaseEntity {
     private String contract;
 
     /**
-     * 项目分类
+     * 项目分类（0=技术开发,1=技术维护,2=物资采买,3=平面设计,4=展陈设计,5=施工,6=文案策划,7=咨询策划,8=视频制作）
      */
     @Excel(name = "项目分类", readConverterExp = "0=技术开发,1=技术维护,2=物资采买,3=平面设计,4=展陈设计,5=施工,6=文案策划,7=咨询策划,8=视频制作")
     private Integer projectCategory;
@@ -169,7 +169,7 @@ public class MdOaProjects extends BaseEntity {
     private String managerCooperationRequired;
 
     /**
-     * 是否第一次接触
+     * 是否第一次接触（0=是，1=否）
      */
     @Excel(name = "是否第一次接触", readConverterExp = "0=是,1=否")
     private Integer firstContact;

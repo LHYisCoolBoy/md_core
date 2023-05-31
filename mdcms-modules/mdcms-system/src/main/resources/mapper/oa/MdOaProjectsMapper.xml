@@ -148,6 +148,20 @@
             <if test="createTime != null">create_time,</if>
             <if test="updateTime != null">update_time,</if>
             <if test="isDelete != null">is_delete,</if>
+            <if test="customerDepartmentName != null">customer_department_name,</if>
+            <if test="customerContactPerson != null">customer_contact_person,</if>
+            <if test="customerContactPhone != null">customer_contact_phone,</if>
+            <if test="supplierName != null">supplier_name,</if>
+            <if test="supplierContactPerson != null">supplier_contact_person,</if>
+            <if test="materialName != null">material_name,</if>
+            <if test="materialQuantity != null">material_quantity,</if>
+            <if test="supplierContactPhone != null">supplier_contact_phone,</if>
+            <if test="materialPrice != null">material_price,</if>
+            <if test="contract != null">contract,</if>
+            <if test="projectCategory != null">project_category,</if>
+            <if test="difficultyForecast != null">difficulty_forecast,</if>
+            <if test="managerCooperationRequired != null">manager_cooperation_required,</if>
+            <if test="firstContact != null">first_contact,</if>
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
             <if test="userId != null">#{userId},</if>
@@ -166,6 +180,20 @@
             <if test="createTime != null">#{createTime},</if>
             <if test="updateTime != null">#{updateTime},</if>
             <if test="isDelete != null">#{isDelete},</if>
+            <if test="customerDepartmentName != null">#{customerDepartmentName},</if>
+            <if test="customerContactPerson != null">#{customerContactPerson},</if>
+            <if test="customerContactPhone != null">#{customerContactPhone},</if>
+            <if test="supplierName != null">#{supplierName},</if>
+            <if test="supplierContactPerson != null">#{supplierContactPerson},</if>
+            <if test="materialName != null">#{materialName},</if>
+            <if test="materialQuantity != null">#{materialQuantity},</if>
+            <if test="supplierContactPhone != null">#{supplierContactPhone},</if>
+            <if test="materialPrice != null">#{materialPrice},</if>
+            <if test="contract != null">#{contract},</if>
+            <if test="projectCategory != null">#{projectCategory},</if>
+            <if test="difficultyForecast != null">#{difficultyForecast},</if>
+            <if test="managerCooperationRequired != null">#{managerCooperationRequired},</if>
+            <if test="firstContact != null">#{firstContact},</if>
         </trim>
     </insert>
 
@@ -188,6 +216,22 @@
             <if test="createTime != null">create_time = #{createTime},</if>
             <if test="updateTime != null">update_time = #{updateTime},</if>
             <if test="isDelete != null">is_delete = #{isDelete},</if>
+            <if test="customerDepartmentName != null">customer_department_name = #{customerDepartmentName},</if>
+            <if test="customerContactPerson != null">customer_contact_person = #{customerContactPerson},</if>
+            <if test="customerContactPhone != null">customer_contact_phone = #{customerContactPhone},</if>
+            <if test="supplierName != null">supplier_name = #{supplierName},</if>
+            <if test="supplierContactPerson != null">supplier_contact_person = #{supplierContactPerson},</if>
+            <if test="materialName != null">material_name = #{materialName},</if>
+            <if test="materialQuantity != null">material_quantity = #{materialQuantity},</if>
+            <if test="supplierContactPhone != null">supplier_contact_phone = #{supplierContactPhone},</if>
+            <if test="materialPrice != null">material_price = #{materialPrice},</if>
+            <if test="contract != null">contract = #{contract},</if>
+            <if test="projectCategory != null">project_category = #{projectCategory},</if>
+            <if test="difficultyForecast != null">difficulty_forecast = #{difficultyForecast},</if>
+            <if test="managerCooperationRequired != null">manager_cooperation_required =
+                #{managerCooperationRequired},
+            </if>
+            <if test="firstContact != null">first_contact = #{firstContact},</if>
         </trim>
         where id = #{id}
     </update>
@@ -322,7 +366,21 @@
         mdoc.video_url,
         mdoc.file_url,
         mdop.create_time,
-        mdop.update_time
+        mdop.update_time,
+        mdop.customer_department_name,
+        mdop.customer_contact_person,
+        mdop.customer_contact_phone,
+        mdop.supplier_name,
+        mdop.supplier_contact_person,
+        mdop.material_name,
+        mdop.material_quantity,
+        mdop.supplier_contact_phone,
+        mdop.material_price,
+        mdop.contract,
+        mdop.project_category,
+        mdop.difficulty_forecast,
+        mdop.manager_cooperation_required,
+        mdop.first_contact
         from md_oa_projects as mdop
         inner join sys_user as u on mdop.user_id = u.user_id
         inner join sys_dept as d on mdop.dept_id = d.dept_id
