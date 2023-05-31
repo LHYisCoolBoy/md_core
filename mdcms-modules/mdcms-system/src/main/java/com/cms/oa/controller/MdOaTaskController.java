@@ -39,7 +39,7 @@ public class MdOaTaskController extends BaseController {
     }
 
     /**
-     * 根据用户 ID 和是否已支付查询所有信息
+     * 根据用户 ID 和是否已完成查询所有信息
      *
      * @param mdOaProjects
      * @return
@@ -61,6 +61,18 @@ public class MdOaTaskController extends BaseController {
     @PostMapping("/updateIsCompleteById")
     public AjaxResult updateIsCompleteById(@RequestBody MdOaProjects mdOaProjects) {
         return toAjax(mdOaProjectsService.updateIsCompleteById(mdOaProjects));
+    }
+
+    /**
+     * 根据项目 ID 更新项目是否已支付字段
+     *
+     * @param mdOaProjects
+     * @return
+     */
+    @Log(title = "项目", businessType = BusinessType.UPDATE)
+    @PostMapping("/updateIsPaymentById")
+    public AjaxResult updateIsPaymentById(@RequestBody MdOaProjects mdOaProjects) {
+        return toAjax(mdOaProjectsService.updateIsPaymentById(mdOaProjects));
     }
 
     /**

@@ -87,6 +87,13 @@ public interface MdOaProjectsMapper {
     int updateIsCompleteById(MdOaProjects mdOaProjects);
 
     /**
+     * 根据项目 ID 更新该项目是否支付字段
+     * @param mdOaProjects
+     * @return
+     */
+    int updateIsPaymentById(MdOaProjects mdOaProjects);
+
+    /**
      * 根据用户 ID 查询协同人是否包含自己，展示在消息部分
      *
      * @param userId

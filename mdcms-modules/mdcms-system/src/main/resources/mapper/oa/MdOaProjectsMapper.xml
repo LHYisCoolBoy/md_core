@@ -312,8 +312,17 @@
     <update id="updateIsCompleteById" parameterType="com.cms.oa.domain.MdOaProjects" useGeneratedKeys="true"
             keyProperty="id">
         update md_oa_projects
-        set is_payment = 1,
+        set is_complete = 2,
         update_time = now()
+        <where>
+            <if test="id != null">and id = #{id}</if>
+        </where>
+    </update>
+
+    <update id="updateIsPaymentById" parameterType="com.cms.oa.domain.MdOaProjects" useGeneratedKeys="true"
+            keyProperty="id">
+        update md_oa_projects
+        set is_payment = 1
         <where>
             <if test="id != null">and id = #{id}</if>
         </where>
@@ -323,7 +332,7 @@
         select count(*)
         from md_oa_projects
         <where>
-            and is_payment = 0
+            and is_complete in (0,1)
             <if test="userId != null">and collaborator_id = #{userId}</if>
         </where>
     </select>
@@ -388,7 +397,7 @@
         inner join sys_dept as d1 on mdop.collaborator_dept_id = d1.dept_id
         left join md_oa_completed as mdoc on mdop.id = mdoc.project_id
         <where>
-            and mdop.is_payment=0
+            and mdop.is_complete in (0,1)
             <if test="userId != null">and mdop.collaborator_id=#{userId}</if>
         </where>
     </select>

@@ -72,21 +72,6 @@ public class MdOaProjectsServiceImpl implements IMdOaProjectsService {
             log.info("MdOaProjectsServiceImpl:insertMdOaProjects:result1 is {}", result1);
             throw new BaseException("添加失败");
         }
-        // 获取开始时间、结束时间、费用金额
-//        Date startTime = mdOaProjects.getStartTime();
-//        Date endTime = mdOaProjects.getEndTime();
-//        String expenseAmount = mdOaProjects.getExpenseAmount();
-//        long expenseAmountLong = Long.parseLong(expenseAmount);
-        // 获取开始时间和结束时间相差多少天
-//        Long phaseDifferenceDays = this.getPhaseDifferenceDays(startTime, endTime);
-//        if (phaseDifferenceDays < 40 || expenseAmountLong > 900) {
-//            mdOaProjects.setUrgency("※※※※※");
-//            int result = this.updateMdOaProjects(mdOaProjects);
-//            if (result <= 0) {
-//                log.info("MdOaProjectsServiceImpl:insertMdOaProjects:result is {}", result);
-//                throw new BaseException("添加紧急程度失败");
-//            }
-//        }
         return result1;
     }
 
@@ -180,7 +165,26 @@ public class MdOaProjectsServiceImpl implements IMdOaProjectsService {
     }
 
     /**
-     * 根据用户 ID 查询协同人是否包含自己，展示在消息部分
+     * 根据项目 ID 更新是否已支付字段
+     * @param mdOaProjects
+     * @return
+     */
+    @Override
+    public int updateIsPaymentById(MdOaProjects mdOaProjects) {
+        if (mdOaProjects == null) {
+            log.info("updateIsPaymentById:mdOaProjects is {}", mdOaProjects);
+            throw new BaseException("参数不能为空");
+        }
+        int result = mdOaProjectsMapper.updateIsPaymentById(mdOaProjects);
+        if (result != 1) {
+            log.info("updateIsCompleteById:result is {}", result);
+            throw new BaseException("数据完成失败");
+        }
+        return result;
+    }
+
+    /**
+     * 根据用户 ID 查询协同人是否包含自己并且项目是未完成的，展示在消息部分
      *
      * @param userId
      * @return
