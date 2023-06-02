@@ -83,17 +83,23 @@ public class MdOaProjectsServiceImpl implements IMdOaProjectsService {
      */
     @Override
     public int updateMdOaProjects(MdOaProjects mdOaProjects) {
-        mdOaProjects.setUpdateTime(DateUtils.getNowDate());
-        int result = mdOaProjectsMapper.updateMdOaProjects(mdOaProjects);
-        if (result <= 0) {
-            log.info("MdOaProjectsServiceImpl:updateMdOaProjects:result is {}", result);
-            return -1;
-        }
         MdOaCompleted mdOaCompleted = new MdOaCompleted();
         mdOaCompleted.setId(mdOaProjects.getId());
         mdOaCompleted.setUserId(mdOaProjects.getUserId());
         mdOaCompleted.setDeptId(mdOaProjects.getDeptId());
-        return mdOaCompletedMapper.updateMdOaCompleted(mdOaCompleted);
+
+        MdOaCompleted mdOaCompleted1 = mdOaCompletedMapper.selectMdOaCompleted(mdOaCompleted);
+        int result = -1;
+        if (mdOaCompleted1 != null) {
+            result = mdOaCompletedMapper.updateMdOaCompleted(mdOaCompleted);
+        }
+        mdOaProjects.setUpdateTime(DateUtils.getNowDate());
+        result = mdOaProjectsMapper.updateMdOaProjects(mdOaProjects);
+        if (result <= 0) {
+            log.info("MdOaProjectsServiceImpl:updateMdOaProjects:result is {}", result);
+            return -1;
+        }
+        return result;
     }
 
     /**
@@ -166,6 +172,7 @@ public class MdOaProjectsServiceImpl implements IMdOaProjectsService {
 
     /**
      * 根据项目 ID 更新是否已支付字段
+     *
      * @param mdOaProjects
      * @return
      */

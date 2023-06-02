@@ -302,8 +302,9 @@
             <if test="userId != null">
                 and (mdop.user_id = #{userId} or mdop.collaborator_id = #{userId})
             </if>
+            <if test="isPayment != null">and mdop.is_payment = #{isPayment}</if>
             <if test="deptId != null">
-                and (mdop.dept_id = #{deptId} or mdop.collaborator_dept_id = #{deptId})
+                and mdop.dept_id = #{deptId}
             </if>
             <if test="name != null and name != ''">and mdop.name like concat('%', #{name}, '%')</if>
         </where>
@@ -371,6 +372,7 @@
         mdop.expense_source,
         mdop.expense_amount,
         mdop.is_payment,
+        mdop.is_complete,
         mdoc.img_url,
         mdoc.video_url,
         mdoc.file_url,
