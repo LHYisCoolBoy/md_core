@@ -2,18 +2,16 @@ package com.cms.gzh.controller;
 
 import java.util.List;
 import java.io.IOException;
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletResponse;
 
+import com.cms.gzh.domain.MdEssayDTO;
+import com.cms.gzh.domain.MdEssayVO;
+import com.cms.gzh.domain.Test01;
+import com.cms.gzh.mapper.Test01Mapper;
 import com.cms.system.api.domain.IdNameVo;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import com.cms.common.log.annotation.Log;
 import com.cms.common.log.enums.BusinessType;
 import com.cms.common.security.annotation.PreAuthorize;
@@ -39,11 +37,11 @@ public class MdEssayController extends BaseController {
     /**
      * 查询文章列表
      */
-    @PreAuthorize(hasPermi = "system:essay:list")
+//    @PreAuthorize(hasPermi = "system:essay:list")
     @GetMapping("/list")
     public TableDataInfo list(MdEssay mdEssay) {
         startPage();
-        List<MdEssay> list = mdEssayService.selectMdEssayList(mdEssay);
+        List<MdEssayVO> list = mdEssayService.selectMdEssayList(mdEssay);
         return getDataTable(list);
     }
 
@@ -63,8 +61,8 @@ public class MdEssayController extends BaseController {
     @Log(title = "文章", businessType = BusinessType.EXPORT)
     @PostMapping("/export")
     public void export(HttpServletResponse response, MdEssay mdEssay) throws IOException {
-        List<MdEssay> list = mdEssayService.selectMdEssayList(mdEssay);
-        ExcelUtil<MdEssay> util = new ExcelUtil<MdEssay>(MdEssay.class);
+        List<MdEssayVO> list = mdEssayService.selectMdEssayList(mdEssay);
+        ExcelUtil<MdEssayVO> util = new ExcelUtil<MdEssayVO>(MdEssayVO.class);
         util.exportExcel(response, list, "essay");
     }
 
@@ -83,7 +81,7 @@ public class MdEssayController extends BaseController {
     @PreAuthorize(hasPermi = "system:essay:add")
     @Log(title = "文章", businessType = BusinessType.INSERT)
     @PostMapping
-    public AjaxResult add(@RequestBody MdEssay mdEssay) {
+    public AjaxResult add(@RequestBody MdEssayDTO mdEssay) {
         return toAjax(mdEssayService.insertMdEssay(mdEssay));
     }
 

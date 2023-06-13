@@ -3,6 +3,8 @@ package com.cms.gzh.mapper;
 import java.util.List;
 
 import com.cms.gzh.domain.MdEssay;
+import com.cms.gzh.domain.MdEssayDTO;
+import com.cms.gzh.domain.MdEssayVO;
 import com.cms.system.api.domain.IdNameVo;
 import org.apache.ibatis.annotations.Param;
 
@@ -27,7 +29,7 @@ public interface MdEssayMapper {
      * @param mdEssay 文章
      * @return 文章集合
      */
-    public List<MdEssay> selectMdEssayList(MdEssay mdEssay);
+    public List<MdEssayVO> selectMdEssayList(MdEssay mdEssay);
 
     /**
      * 新增文章

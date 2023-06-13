@@ -1,8 +1,10 @@
 package com.cms.oa.domain.vo;
 
+import com.alibaba.fastjson.JSONArray;
 import com.cms.common.core.annotation.Excel;
 import com.cms.common.core.web.domain.BaseEntity;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.mysql.cj.xdevapi.JsonArray;
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.commons.lang.builder.ToStringStyle;
 
@@ -41,6 +43,16 @@ public class MdOaProjectsVO extends BaseEntity {
      * 部门昵称
      */
     private String deptName;
+
+    /**
+     * 类别 ID
+     */
+    private Long categoryId;
+
+    /**
+     * 属地（客户 ID）
+     */
+    private Long territorialityId;
 
     /**
      * 项目名称
@@ -474,6 +486,22 @@ public class MdOaProjectsVO extends BaseEntity {
         this.firstContact = firstContact;
     }
 
+    public Long getCategoryId() {
+        return categoryId;
+    }
+
+    public void setCategoryId(Long categoryId) {
+        this.categoryId = categoryId;
+    }
+
+    public Long getTerritorialityId() {
+        return territorialityId;
+    }
+
+    public void setTerritorialityId(Long territorialityId) {
+        this.territorialityId = territorialityId;
+    }
+
     @Override
     public String toString() {
         return new ToStringBuilder(this, ToStringStyle.MULTI_LINE_STYLE)
@@ -514,6 +542,8 @@ public class MdOaProjectsVO extends BaseEntity {
                 .append("firstContact", getFirstContact())
                 .append("createTime", getCreateTime())
                 .append("updateTime", getUpdateTime())
+                .append("categoryId", getCategoryId())
+                .append("territorialityId", getTerritorialityId())
                 .toString();
     }
 }

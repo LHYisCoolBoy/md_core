@@ -107,7 +107,7 @@
     <delete id="deleteMdOaCompletedById" parameterType="Long">
         delete
         from md_oa_completed
-        where id = #{id}
+        where project_id = #{id}
     </delete>
 
     <delete id="deleteMdOaCompletedByIds" parameterType="String">

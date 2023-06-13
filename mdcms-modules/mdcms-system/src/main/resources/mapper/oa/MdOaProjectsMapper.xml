@@ -44,6 +44,8 @@
         <result property="nickName" column="nick_name"/>
         <result property="deptId" column="dept_id"/>
         <result property="deptName" column="dept_name"/>
+        <result property="categoryId" column="category_id"/>
+        <result property="territorialityId" column="territoriality_id"/>
         <result property="name" column="name"/>
         <result property="collaboratorId" column="collaborator_id"/>
         <result property="collaboratorName" column="collaborator_name"/>
@@ -134,6 +136,8 @@
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="userId != null">user_id,</if>
             <if test="deptId != null">dept_id,</if>
+            <if test="categoryId != null">category_id,</if>
+            <if test="territorialityId != null">territoriality_id,</if>
             <if test="name != null">name,</if>
             <if test="collaboratorId != null">collaborator_id,</if>
             <if test="collaboratorDeptId != null">collaborator_dept_id,</if>
@@ -166,6 +170,8 @@
         <trim prefix="values (" suffix=")" suffixOverrides=",">
             <if test="userId != null">#{userId},</if>
             <if test="deptId != null">#{deptId},</if>
+            <if test="categoryId != null">#{categoryId},</if>
+            <if test="territorialityId != null">#{territorialityId},</if>
             <if test="name != null">#{name},</if>
             <if test="collaboratorId != null">#{collaboratorId},</if>
             <if test="collaboratorDeptId != null">#{collaboratorDeptId},</if>
@@ -202,6 +208,8 @@
         <trim prefix="SET" suffixOverrides=",">
             <if test="userId != null">user_id = #{userId},</if>
             <if test="deptId != null">dept_id = #{deptId},</if>
+            <if test="categoryId != null">category_id = #{categoryId},</if>
+            <if test="territorialityId != null">territorialityId = #{territorialityId},</if>
             <if test="name != null">name = #{name},</if>
             <if test="collaboratorId != null">collaborator_id = #{collaboratorId},</if>
             <if test="collaboratorDeptId != null">collaborator_dept_id = #{collaboratorDeptId},</if>
@@ -255,6 +263,8 @@
         u.nick_name,
         mdop.dept_id,
         d.dept_name,
+        mdop.category_id,
+        mdop.territoriality_id,
         mdop.name,
         mdop.collaborator_id,
         u1.nick_name as collaborator_name,
@@ -288,11 +298,13 @@
         mdop.manager_cooperation_required,
         mdop.first_contact
         from md_oa_projects as mdop
-        inner join sys_user as u on mdop.user_id = u.user_id
-        inner join sys_dept as d on mdop.dept_id = d.dept_id
-        inner join sys_user as u1 on mdop.collaborator_id = u1.user_id
-        inner join sys_dept as d1 on mdop.collaborator_dept_id = d1.dept_id
+        left join sys_user as u on mdop.user_id = u.user_id
+        left join sys_dept as d on mdop.dept_id = d.dept_id
+        left join sys_user as u1 on mdop.collaborator_id = u1.user_id
+        left join sys_dept as d1 on mdop.collaborator_dept_id = d1.dept_id
         left join md_oa_completed as mdoc on mdop.id = mdoc.project_id
+        left join md_oa_category as category on mdop.category_id = category.id
+        left join md_quick_bi.md_oa_territoriality as territoriality on mdop.territoriality_id = territoriality.id
         <where>
             and mdop.is_delete = 0
             <if test="id != null">and mdop.id = #{id}</if>
@@ -307,6 +319,8 @@
                 and mdop.dept_id = #{deptId}
             </if>
             <if test="name != null and name != ''">and mdop.name like concat('%', #{name}, '%')</if>
+            <if test="categoryId != null">and mdop.category_id = #{categoryId}</if>
+            <if test="territorialityId != null">and mdop.territoriality_id = #{territorialityId}</if>
         </where>
     </select>
 
@@ -360,6 +374,8 @@
         u.nick_name,
         mdop.dept_id,
         d.dept_name,
+        mdop.category_id,
+        mdop.territoriality_id,
         mdop.name,
         mdop.collaborator_id,
         u1.nick_name as collaborator_name,
@@ -393,11 +409,13 @@
         mdop.manager_cooperation_required,
         mdop.first_contact
         from md_oa_projects as mdop
-        inner join sys_user as u on mdop.user_id = u.user_id
-        inner join sys_dept as d on mdop.dept_id = d.dept_id
-        inner join sys_user as u1 on mdop.collaborator_id = u1.user_id
-        inner join sys_dept as d1 on mdop.collaborator_dept_id = d1.dept_id
+        left join sys_user as u on mdop.user_id = u.user_id
+        left join sys_dept as d on mdop.dept_id = d.dept_id
+        left join sys_user as u1 on mdop.collaborator_id = u1.user_id
+        left join sys_dept as d1 on mdop.collaborator_dept_id = d1.dept_id
         left join md_oa_completed as mdoc on mdop.id = mdoc.project_id
+        left join md_quick_bi.md_oa_category as mdqboc on mdop.category_id = mdqboc.id
+        left join md_quick_bi.md_oa_territoriality as mdqbot on mdop.territoriality_id = mdqbot.id
         <where>
             and mdop.is_complete in (0,1)
             <if test="userId != null">and mdop.collaborator_id=#{userId}</if>

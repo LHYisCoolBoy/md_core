@@ -2,7 +2,12 @@ package com.cms.gzh.service.impl;
 
 import java.util.List;
 
+import com.cms.common.core.annotation.Excel;
 import com.cms.common.core.utils.DateUtils;
+import com.cms.gzh.domain.MdEssayDTO;
+import com.cms.gzh.domain.MdEssayVO;
+import com.cms.gzh.domain.Test01;
+import com.cms.gzh.mapper.Test01Mapper;
 import com.cms.system.api.domain.IdNameVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,6 +25,9 @@ import com.cms.gzh.service.IMdEssayService;
 public class MdEssayServiceImpl implements IMdEssayService {
     @Autowired
     private MdEssayMapper mdEssayMapper;
+
+    @Autowired
+    private Test01Mapper test01Mapper;
 
     /**
      * 查询文章
@@ -39,7 +47,7 @@ public class MdEssayServiceImpl implements IMdEssayService {
      * @return 文章
      */
     @Override
-    public List<MdEssay> selectMdEssayList(MdEssay mdEssay) {
+    public List<MdEssayVO> selectMdEssayList(MdEssay mdEssay) {
         return mdEssayMapper.selectMdEssayList(mdEssay);
     }
 
@@ -50,10 +58,28 @@ public class MdEssayServiceImpl implements IMdEssayService {
      * @return 结果
      */
     @Override
-    public int insertMdEssay(MdEssay mdEssay) {
+    public int insertMdEssay(MdEssayDTO mdEssay) {
         mdEssay.setCreateTime(DateUtils.getNowDate());
-        return mdEssayMapper.insertMdEssay(mdEssay);
+        Test01 test01 = new Test01();
+        test01.setText(mdEssay.getText());
+        int i = test01Mapper.addText(test01);
+        if (i <= 0) {
+            System.out.println("添加失败");
+        }
+        Test01 text = test01Mapper.getText(test01);
+        MdEssay mdEssay1 = new MdEssay();
+        mdEssay1.setEssayTitle(mdEssay.getEssayTitle());
+        mdEssay1.setEssaySubtitle(mdEssay.getEssaySubtitle());
+        mdEssay1.setEssayText(mdEssay.getEssayText());
+        mdEssay1.setInformationClassify(mdEssay.getInformationClassify());
+        mdEssay1.setCoverImage(mdEssay.getCoverImage());
+        mdEssay1.setSort(mdEssay.getSort());
+        mdEssay1.setTextId(text.getId());
+        mdEssay1.setStatus(mdEssay.getStatus());
+
+        return mdEssayMapper.insertMdEssay(mdEssay1);
     }
+
 
     /**
      * 修改文章

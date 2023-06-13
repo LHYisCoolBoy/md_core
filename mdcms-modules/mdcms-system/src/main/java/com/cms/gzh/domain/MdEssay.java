@@ -41,7 +41,7 @@ public class MdEssay extends BaseEntity
     private Integer sort;
 
     /** 正文 */
-    private String text;
+    private Long textId;
 
     /** 状态 */
     @Excel(name = "状态")
@@ -117,15 +117,16 @@ public class MdEssay extends BaseEntity
     {
         return sort;
     }
-    public void setText(String text)
-    {
-        this.text = text;
+
+
+    public Long getTextId() {
+        return textId;
     }
 
-    public String getText()
-    {
-        return text;
+    public void setTextId(Long textId) {
+        this.textId = textId;
     }
+
     public void setStatus(Integer status)
     {
         this.status = status;
@@ -164,7 +165,7 @@ public class MdEssay extends BaseEntity
             .append("informationClassify", getInformationClassify())
             .append("coverImage", getCoverImage())
             .append("sort", getSort())
-            .append("text", getText())
+            .append("textId", getTextId())
             .append("status", getStatus())
             .append("clickNum", getClickNum())
             .append("createTime", getCreateTime())

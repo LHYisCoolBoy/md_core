@@ -110,7 +110,12 @@ public class MdOaProjectsServiceImpl implements IMdOaProjectsService {
      */
     @Override
     public int deleteMdOaProjectsByIds(Long[] ids) {
-        return mdOaProjectsMapper.deleteMdOaProjectsByIds(ids);
+        int i = mdOaProjectsMapper.deleteMdOaProjectsByIds(ids);
+        int i1 = -1;
+        for (Long id : ids) {
+            i1 = mdOaCompletedMapper.deleteMdOaCompletedById(id);
+        } 
+        return i;
     }
 
     /**

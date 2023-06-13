@@ -35,6 +35,18 @@ public class MdOaProjects extends BaseEntity {
     private Long deptId;
 
     /**
+     * 类别 ID
+     */
+    @Excel(name = "类别 ID")
+    private Long categoryId;
+
+    /**
+     * 属地（客户）ID
+     */
+    @Excel(name = "属地（客户）ID")
+    private Long territorialityId;
+
+    /**
      * 项目名称
      */
     @Excel(name = "项目名称")
@@ -431,6 +443,22 @@ public class MdOaProjects extends BaseEntity {
         this.firstContact = firstContact;
     }
 
+    public Long getCategoryId() {
+        return categoryId;
+    }
+
+    public void setCategoryId(Long categoryId) {
+        this.categoryId = categoryId;
+    }
+
+    public Long getTerritorialityId() {
+        return territorialityId;
+    }
+
+    public void setTerritorialityId(Long territorialityId) {
+        this.territorialityId = territorialityId;
+    }
+
     @Override
     public String toString() {
         return new ToStringBuilder(this, ToStringStyle.MULTI_LINE_STYLE)
@@ -465,6 +493,8 @@ public class MdOaProjects extends BaseEntity {
                 .append("createTime", getCreateTime())
                 .append("updateTime", getUpdateTime())
                 .append("isDelete", getIsDelete())
+                .append("categoryId", getCategoryId())
+                .append("territorialityId", getTerritorialityId())
                 .toString();
     }
 }
