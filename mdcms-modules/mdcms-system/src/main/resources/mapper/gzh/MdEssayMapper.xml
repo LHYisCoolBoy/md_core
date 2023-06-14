@@ -12,7 +12,7 @@
         <result property="informationClassify" column="information_classify_id"/>
         <result property="coverImage" column="cover_image"/>
         <result property="sort" column="sort"/>
-        <result property="textId" column="text"/>
+        <result property="textId" column="text_id"/>
         <result property="status" column="status"/>
         <result property="clickNum" column="click_num"/>
         <result property="createTime" column="create_time"/>
@@ -44,7 +44,7 @@
                information_classify_id,
                cover_image,
                sort,
-               text,
+               text_id,
                status,
                click_num,
                create_time,
@@ -79,9 +79,23 @@
         </where>
     </select>
 
-    <select id="selectMdEssayById" parameterType="Integer" resultMap="MdEssayResult">
-        <include refid="selectMdEssayVo"/>
-        where id = #{id}
+    <select id="selectMdEssayById" parameterType="Integer" resultMap="MdEssayVOResult">
+        SELECT mde.id,
+               essay_title,
+               essay_subtitle,
+               essay_text,
+               information_classify_id,
+               cover_image,
+               sort,
+               text,
+               status,
+               click_num,
+               create_time,
+               update_time,
+               is_delete
+        FROM md_qcgw_gzh.md_essay as mde
+                 inner join md_qcgw_gzh.test01 as t01 on mde.text_id = t01.id
+        where mde.id = #{id}
     </select>
 
     <insert id="insertMdEssay" parameterType="com.cms.gzh.domain.MdEssay" useGeneratedKeys="true" keyProperty="id">
@@ -125,7 +139,7 @@
             <if test="informationClassify != null">information_classify_id = #{informationClassify},</if>
             <if test="coverImage != null">cover_image = #{coverImage},</if>
             <if test="sort != null">sort = #{sort},</if>
-            <if test="text != null">text = #{text},</if>
+            <if test="textId != null">text_id = #{textId},</if>
             <if test="status != null">status = #{status},</if>
             <if test="clickNum != null">click_num = #{clickNum},</if>
             <if test="createTime != null">create_time = #{createTime},</if>
@@ -151,5 +165,22 @@
     <select id="nameList" resultType="com.cms.system.api.domain.IdNameVo">
         SELECT e.id AS id, e.essay_title AS name
         FROM md_qcgw_gzh.md_essay e
+    </select>
+    <select id="selectMdEssayById01" resultMap="MdEssayResult">
+        select id,
+               essay_title,
+               essay_subtitle,
+               essay_text,
+               information_classify_id,
+               cover_image,
+               sort,
+               text_id,
+               status,
+               click_num,
+               create_time,
+               update_time,
+               is_delete
+        from md_qcgw_gzh.md_essay
+        where id = #{id};
     </select>
 </mapper>

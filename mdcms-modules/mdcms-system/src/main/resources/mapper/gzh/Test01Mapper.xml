@@ -13,10 +13,17 @@
         insert into md_qcgw_gzh.test01 (text)
         values (#{text});
     </insert>
+    <update id="updateText">
+        update md_qcgw_gzh.test01
+        set text = #{text}
+        where id = #{id};
+    </update>
     <select id="getText" resultMap="Test01ResultMap">
-        select id
-        from md_qcgw_gzh.test01
-        where text = #{text};
+        <if test="text != null and text != ''">
+            select id
+            from md_qcgw_gzh.test01
+            where text = #{text};
+        </if>
     </select>
 
 </mapper>

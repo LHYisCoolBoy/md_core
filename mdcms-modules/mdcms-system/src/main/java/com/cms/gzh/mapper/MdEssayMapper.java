@@ -21,7 +21,15 @@ public interface MdEssayMapper {
      * @param id 文章ID
      * @return 文章
      */
-    public MdEssay selectMdEssayById(Integer id);
+    public MdEssayVO selectMdEssayById(Integer id);
+
+    /**
+     * 查询文章 根据 ID
+     *
+     * @param id 文章ID
+     * @return 文章
+     */
+    public MdEssay selectMdEssayById01(Integer id);
 
     /**
      * 查询文章列表

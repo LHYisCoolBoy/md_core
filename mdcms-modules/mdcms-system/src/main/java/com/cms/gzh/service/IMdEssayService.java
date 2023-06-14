@@ -20,7 +20,7 @@ public interface IMdEssayService
      * @param id 文章ID
      * @return 文章
      */
-    public MdEssay selectMdEssayById(Integer id);
+    public MdEssayVO selectMdEssayById(Integer id);
 
     /**
      * 查询文章列表
@@ -44,7 +44,7 @@ public interface IMdEssayService
      * @param mdEssay 文章
      * @return 结果
      */
-    public int updateMdEssay(MdEssay mdEssay);
+    public int updateMdEssay(MdEssayDTO mdEssay);
 
     /**
      * 批量删除文章

@@ -37,7 +37,7 @@ public class MdEssayController extends BaseController {
     /**
      * 查询文章列表
      */
-//    @PreAuthorize(hasPermi = "system:essay:list")
+    @PreAuthorize(hasPermi = "system:essay:list")
     @GetMapping("/list")
     public TableDataInfo list(MdEssay mdEssay) {
         startPage();
@@ -91,7 +91,7 @@ public class MdEssayController extends BaseController {
     @PreAuthorize(hasPermi = "system:essay:edit")
     @Log(title = "文章", businessType = BusinessType.UPDATE)
     @PutMapping
-    public AjaxResult edit(@RequestBody MdEssay mdEssay) {
+    public AjaxResult edit(@RequestBody MdEssayDTO mdEssay) {
         return toAjax(mdEssayService.updateMdEssay(mdEssay));
     }
 
