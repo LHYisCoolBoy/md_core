@@ -11,7 +11,7 @@ import com.cms.gzh.domain.SysGzhUser;
  * @author lhy
  * @date 2023-04-10
  */
-public interface SysGzhUserService
+public interface  SysGzhUserService
 {
     /**
      * 查询公众号用户名

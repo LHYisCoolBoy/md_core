@@ -2,13 +2,10 @@ package com.cms.gzh.controller;
 
 import java.util.List;
 import java.io.IOException;
-import javax.annotation.Resource;
 import javax.servlet.http.HttpServletResponse;
 
-import com.cms.gzh.domain.MdEssayDTO;
-import com.cms.gzh.domain.MdEssayVO;
-import com.cms.gzh.domain.Test01;
-import com.cms.gzh.mapper.Test01Mapper;
+import com.cms.gzh.domain.dto.MdEssayDto;
+import com.cms.gzh.domain.vo.MdEssayVo;
 import com.cms.system.api.domain.IdNameVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -41,7 +38,7 @@ public class MdEssayController extends BaseController {
     @GetMapping("/list")
     public TableDataInfo list(MdEssay mdEssay) {
         startPage();
-        List<MdEssayVO> list = mdEssayService.selectMdEssayList(mdEssay);
+        List<MdEssayVo> list = mdEssayService.selectMdEssayList(mdEssay);
         return getDataTable(list);
     }
 
@@ -61,8 +58,8 @@ public class MdEssayController extends BaseController {
     @Log(title = "文章", businessType = BusinessType.EXPORT)
     @PostMapping("/export")
     public void export(HttpServletResponse response, MdEssay mdEssay) throws IOException {
-        List<MdEssayVO> list = mdEssayService.selectMdEssayList(mdEssay);
-        ExcelUtil<MdEssayVO> util = new ExcelUtil<MdEssayVO>(MdEssayVO.class);
+        List<MdEssayVo> list = mdEssayService.selectMdEssayList(mdEssay);
+        ExcelUtil<MdEssayVo> util = new ExcelUtil<MdEssayVo>(MdEssayVo.class);
         util.exportExcel(response, list, "essay");
     }
 
@@ -81,7 +78,7 @@ public class MdEssayController extends BaseController {
     @PreAuthorize(hasPermi = "system:essay:add")
     @Log(title = "文章", businessType = BusinessType.INSERT)
     @PostMapping
-    public AjaxResult add(@RequestBody MdEssayDTO mdEssay) {
+    public AjaxResult add(@RequestBody MdEssayDto mdEssay) {
         return toAjax(mdEssayService.insertMdEssay(mdEssay));
     }
 
@@ -91,7 +88,7 @@ public class MdEssayController extends BaseController {
     @PreAuthorize(hasPermi = "system:essay:edit")
     @Log(title = "文章", businessType = BusinessType.UPDATE)
     @PutMapping
-    public AjaxResult edit(@RequestBody MdEssayDTO mdEssay) {
+    public AjaxResult edit(@RequestBody MdEssayDto mdEssay) {
         return toAjax(mdEssayService.updateMdEssay(mdEssay));
     }
 

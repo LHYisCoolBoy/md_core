@@ -2,8 +2,8 @@ package com.cms.gzh.service;
 
 import java.util.List;
 import com.cms.gzh.domain.MdEssay;
-import com.cms.gzh.domain.MdEssayDTO;
-import com.cms.gzh.domain.MdEssayVO;
+import com.cms.gzh.domain.dto.MdEssayDto;
+import com.cms.gzh.domain.vo.MdEssayVo;
 import com.cms.system.api.domain.IdNameVo;
 
 /**
@@ -20,7 +20,7 @@ public interface IMdEssayService
      * @param id 文章ID
      * @return 文章
      */
-    public MdEssayVO selectMdEssayById(Integer id);
+    public MdEssayVo selectMdEssayById(Integer id);
 
     /**
      * 查询文章列表
@@ -28,7 +28,7 @@ public interface IMdEssayService
      * @param mdEssay 文章
      * @return 文章集合
      */
-    public List<MdEssayVO> selectMdEssayList(MdEssay mdEssay);
+    public List<MdEssayVo> selectMdEssayList(MdEssay mdEssay);
 
     /**
      * 新增文章
@@ -36,7 +36,7 @@ public interface IMdEssayService
      * @param mdEssay 文章
      * @return 结果
      */
-    public int insertMdEssay(MdEssayDTO mdEssay);
+    public int insertMdEssay(MdEssayDto mdEssay);
 
     /**
      * 修改文章
@@ -44,7 +44,7 @@ public interface IMdEssayService
      * @param mdEssay 文章
      * @return 结果
      */
-    public int updateMdEssay(MdEssayDTO mdEssay);
+    public int updateMdEssay(MdEssayDto mdEssay);
 
     /**
      * 批量删除文章

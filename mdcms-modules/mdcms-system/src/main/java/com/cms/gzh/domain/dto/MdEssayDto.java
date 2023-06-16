@@ -1,11 +1,11 @@
-package com.cms.gzh.domain;
+package com.cms.gzh.domain.dto;
 
 import com.cms.common.core.annotation.Excel;
 import com.cms.common.core.web.domain.BaseEntity;
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.commons.lang.builder.ToStringStyle;
 
-public class MdEssayVO extends BaseEntity {
+public class MdEssayDto extends BaseEntity {
     private static final long serialVersionUID = 1L;
 
     /**

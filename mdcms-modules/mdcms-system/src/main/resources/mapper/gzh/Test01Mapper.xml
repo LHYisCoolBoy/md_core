@@ -18,6 +18,13 @@
         set text = #{text}
         where id = #{id};
     </update>
+
+    <delete id="delById">
+        delete
+        from md_qcgw_gzh.test01
+        where id = #{id};
+    </delete>
+
     <select id="getText" resultMap="Test01ResultMap">
         <if test="text != null and text != ''">
             select id
@@ -25,5 +32,4 @@
             where text = #{text};
         </if>
     </select>
-
 </mapper>

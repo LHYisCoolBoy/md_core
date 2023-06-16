@@ -3,10 +3,8 @@ package com.cms.gzh.mapper;
 import java.util.List;
 
 import com.cms.gzh.domain.MdEssay;
-import com.cms.gzh.domain.MdEssayDTO;
-import com.cms.gzh.domain.MdEssayVO;
+import com.cms.gzh.domain.vo.MdEssayVo;
 import com.cms.system.api.domain.IdNameVo;
-import org.apache.ibatis.annotations.Param;
 
 /**
  * 文章Mapper接口
@@ -21,7 +19,7 @@ public interface MdEssayMapper {
      * @param id 文章ID
      * @return 文章
      */
-    public MdEssayVO selectMdEssayById(Integer id);
+    public MdEssayVo selectMdEssayById(Integer id);
 
     /**
      * 查询文章 根据 ID
@@ -37,7 +35,7 @@ public interface MdEssayMapper {
      * @param mdEssay 文章
      * @return 文章集合
      */
-    public List<MdEssayVO> selectMdEssayList(MdEssay mdEssay);
+    public List<MdEssayVo> selectMdEssayList(MdEssay mdEssay);
 
     /**
      * 新增文章
@@ -72,4 +70,10 @@ public interface MdEssayMapper {
     public int deleteMdEssayByIds(Integer[] ids);
 
     List<IdNameVo> nameList();
+
+    /**
+     * 获取所有文章里的 sort 字段的最大值
+     * @return
+     */
+    Integer getSortMax();
 }

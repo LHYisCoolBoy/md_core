@@ -20,7 +20,7 @@
         <result property="isDelete" column="is_delete"/>
     </resultMap>
 
-    <resultMap type="com.cms.gzh.domain.MdEssayVO" id="MdEssayVOResult">
+    <resultMap type="com.cms.gzh.domain.vo.MdEssayVo" id="MdEssayVOResult">
         <result property="id" column="id"/>
         <result property="essayTitle" column="essay_title"/>
         <result property="essaySubtitle" column="essay_subtitle"/>
@@ -182,5 +182,9 @@
                is_delete
         from md_qcgw_gzh.md_essay
         where id = #{id};
+    </select>
+    <select id="getSortMax" resultType="java.lang.Integer">
+        select max(sort)
+        from md_qcgw_gzh.md_essay;
     </select>
 </mapper>
